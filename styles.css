@@ -1,0 +1,759 @@
+/* styles.css */
+:root {
+    --primary-color: #1a73e8;
+    --primary-light: #e8f0fe;
+    --secondary-color: #34a853;
+    --accent-color: #4285f4;
+    --light-color: #f8f9fa;
+    --dark-color: #202124;
+    --warning-color: #fbbc05;
+    --danger-color: #ea4335;
+}
+
+* {
+    font-family: "Kanit", sans-serif;
+}
+
+body {
+    background-color: #f5f9ff;
+    color: #333;
+    
+}
+
+.navbar-custom {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.2);
+}
+
+.card {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 600;
+    border-bottom: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 8px;
+    padding: 8px 20px;
+}
+
+.btn-primary:hover {
+    background-color: #0d62d9;
+    border-color: #0d62d9;
+}
+
+.btn-success {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    border-radius: 8px;
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+    border-color: var(--warning-color);
+    border-radius: 8px;
+    color: #333;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+    border-radius: 8px;
+}
+
+.btn-google {
+    background-color: white;
+    color: #757575;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-google:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-google img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.status-active {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.status-inactive {
+    color: var(--danger-color);
+    font-weight: 600;
+}
+
+.fish-icon {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    font-weight: 600;
+}
+
+.stats-card {
+    background: linear-gradient(135deg, #1a73e8, #4285f4);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(26, 115, 232, 0.2);
+}
+
+.stats-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.stats-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.footer {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 20px 0;
+    margin-top: 40px;
+    border-radius: 15px 15px 0 0;
+}
+
+.modal-header {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    border-radius: 15px 15px 0 0;
+}
+
+.log-entry {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    padding: 10px 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+.log-time {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.log-action {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.unit-badge {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #555;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+}
+
+.login-card {
+    max-width: 450px;
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.user-profile img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid white;
+}
+
+.user-info {
+    font-size: 0.9rem;
+}
+
+.user-name {
+    font-weight: 600;
+}
+
+.user-email {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.login-logo {
+    color: var(--primary-color);
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.login-title {
+    color: var(--dark-color);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.login-subtitle {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.feature-list {
+    text-align: left;
+    margin-top: 25px;
+    padding: 20px 25px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.feature-list ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    color: #555;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.feature-list li:hover {
+    transform: translateX(4px);
+    color: #000;
+}
+
+.feature-list i {
+    color: var(--secondary-color);
+    margin-right: 10px;
+    font-size: 1.05rem;
+}
+
+.admin-badge {
+    background-color: var(--warning-color);
+    color: #333;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.firebase-config-card {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.config-step {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-left: 4px solid var(--primary-color);
+    background-color: var(--primary-light);
+}
+
+/* เพิ่มในส่วน Custom CSS */
+.pagination .page-link {
+    color: var(--primary-color);
+    border-color: #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.pagination .page-link:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+}
+
+.table-responsive {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.table th {
+    position: sticky;
+    top: 0;
+    background-color: var(--primary-light);
+    z-index: 10;
+}
+
+.btn-link {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.btn-link:hover {
+    color: #0d62d9;
+}
+
+/* Filter and search styling */
+.input-group-text {
+    background-color: var(--primary-light);
+    border-color: #dee2e6;
+    color: var(--primary-color);
+}
+
+#fish-search:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(26, 115, 232, 0.25);
+}
+
+/* เพิ่มในส่วน CSS */
+#print-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: "Kanit", sans-serif;
+}
+
+#print-table th {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+    font-weight: 600;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#print-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+#table-print-container {
+    background-color: white;
+    padding: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#table-print-container h3 {
+    color: #1a73e8;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+#table-print-container h4 {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+/* สำหรับการพิมพ์ */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #table-print-container,
+    #table-print-container * {
+        visibility: visible !important;
+    }
+
+    #table-print-container {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        padding: 20px !important;
+        background-color: white !important;
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    /* ปรับปรุงการแสดงผลตารางเมื่อพิมพ์ */
+    #print-table {
+        page-break-inside: auto;
+        width: 100%;
+    }
+
+    #print-table tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    #print-table td,
+    #print-table th {
+        border: 1px solid #000;
+        padding: 6px;
+        font-size: 12px;
+    }
+}
+
+/* ========================= Mobile (≤576px) ========================= */
+@media (max-width: 576px) {
+    .stats-number {
+        font-size: 1.6rem;
+    }
+
+    .fish-image {
+        width: 40px;
+        height: 40px;
+    }
+
+    .user-profile {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .user-profile img {
+        margin-right: 0;
+        margin-bottom: 6px;
+    }
+
+    .user-info {
+        display: none;
+    }
+}
+
+/* ========================= Tablet (≤768px) ========================= */
+@media (max-width: 768px) {
+    .stats-number {
+        font-size: 2rem;
+    }
+
+    .fish-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .user-profile {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .user-profile img {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .user-info {
+        font-size: 0.85rem;
+    }
+}
+
+/* ========================= Laptop (≤992px) ========================= */
+@media (max-width: 992px) {
+    .stats-number {
+        font-size: 2.3rem;
+    }
+
+    .fish-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .user-info {
+        font-size: 0.9rem;
+    }
+}
+
+/* ========================= Desktop / Large Screen (≥1200px) ========================= */
+@media (min-width: 1200px) {
+    .stats-number {
+        font-size: 2.8rem;
+    }
+
+    .fish-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .user-info {
+        font-size: 1rem;
+    }
+}
+
+/* เพิ่ม CSS สำหรับปุ่มใหม่ */
+.btn-group .btn {
+    border-radius: 6px !important;
+}
+
+.btn-outline-success {
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-outline-success:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-outline-info {
+    color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-outline-info:hover {
+    background-color: #17a2b8;
+    color: white;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #table-print-container,
+    #table-print-container * {
+        visibility: visible;
+    }
+
+    #table-print-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 20px;
+        background-color: white;
+    }
+
+    #print-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    #print-table th,
+    #print-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #print-table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+}
+
+#print-table {
+    font-size: 12px;
+}
+
+#print-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+#table-print-container {
+    font-family: "Kanit", "Sarabun", "Cordia New", sans-serif !important;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+#print-table {
+    font-family: "Kanit", "Sarabun", "Cordia New", sans-serif !important;
+}
+
+#print-table th,
+#print-table td {
+    font-family: "Kanit", "Sarabun", "Cordia New", sans-serif !important;
+    font-size: 11px;
+}
+
+.table th,
+.table td {
+    font-family: "Kanit", sans-serif;
+}
+/* CSS สำหรับตารางที่ใช้ใน PDF */
+      .pdf-table-container {
+        display: none;
+        font-family: "Sarabun", "Kanit", sans-serif !important;
+        background: white;
+        padding: 20px;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      .pdf-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #1a73e8;
+      }
+
+      .pdf-header h2 {
+        color: #1a73e8;
+        font-size: 28px;
+        /* ← ใหญ่ขึ้นจาก 24px */
+        margin-bottom: 10px;
+        font-family: "Sarabun", sans-serif !important;
+        font-weight: 700;
+      }
+
+      .pdf-header h3 {
+        color: #666;
+        font-size: 20px;
+        /* ← ใหญ่ขึ้นจาก 18px */
+        margin-bottom: 20px;
+        font-family: "Sarabun", sans-serif !important;
+      }
+
+      .pdf-header .date-info {
+        color: #333;
+        font-size: 16px;
+        /* ← ใหญ่ขึ้นจาก 14px */
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .pdf-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: "Sarabun", sans-serif !important;
+        font-size: 14px;
+        /* ← ใหญ่ขึ้นจาก 12px (ตารางหลัก) */
+      }
+
+      .pdf-table th {
+        background-color: #1a73e8;
+        color: white;
+        font-weight: 600;
+        padding: 12px 10px;
+        /* ← เพิ่ม padding */
+        border: 1px solid #ddd;
+        text-align: center;
+        font-size: 16px;
+        /* ← ใหญ่ขึ้นจาก 13px (หัวตาราง) */
+      }
+
+      .pdf-table td {
+        padding: 10px 8px;
+        /* ← เพิ่ม padding */
+        border: 1px solid #ddd;
+        text-align: left;
+        font-size: 14px;
+        /* ← ใหญ่ขึ้นจาก 12px (ข้อมูลในตาราง) */
+      }
+
+      .pdf-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      .pdf-footer {
+        margin-top: 30px;
+        padding-top: 15px;
+        border-top: 1px solid #ddd;
+        font-size: 13px;
+        /* ← ใหญ่ขึ้นจาก 11px */
+        color: #666;
+        text-align: right;
+        font-family: "Sarabun", sans-serif !important;
+      }
+
+      /* สำหรับตารางที่มีข้อมูลเยอะ - ปรับให้ใหญ่ขึ้นด้วย */
+      .pdf-table.small-font {
+        font-size: 12px;
+        /* ← ใหญ่ขึ้นจาก 10px */
+      }
+
+      .pdf-table.small-font th,
+      .pdf-table.small-font td {
+        padding: 8px 6px;
+        /* ← เพิ่ม padding */
+        font-size: 12px;
+        /* ← ใหญ่ขึ้นจาก 10px */
+      }
+
+      /* เพิ่มคลาสสำหรับฟอนต์ใหญ่พิเศษ */
+      .pdf-table.large-font {
+        font-size: 16px;
+      }
+
+      .pdf-table.large-font th {
+        font-size: 18px;
+        padding: 14px 12px;
+      }
+
+      .pdf-table.large-font td {
+        font-size: 16px;
+        padding: 12px 10px;
+      }
+
+
+
+
+
+      #search-info {
+  font-size: 0.875rem;
+  padding: 4px 8px;
+  background-color: rgba(26, 115, 232, 0.1);
+  border-radius: 4px;
+  border-left: 3px solid var(--primary-color);
+  margin-top: 5px;
+}
+
+#search-info i {
+  font-size: 0.8rem;
+}

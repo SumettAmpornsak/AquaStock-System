@@ -1,0 +1,2957 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png"
+      type="image/x-icon"
+    />
+    <title>AquaStockSystem</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- Font Kanit -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- เพิ่มฟอนต์ Sarabun สำหรับ PDF -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- SweetAlert2 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+
+    <!-- เพิ่ม library html2canvas สำหรับการจับภาพเป็น JPEG -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Custom CSS -->
+
+    <!-- เพิ่ม CSS สำหรับ PDF -->
+    <style>
+      /* CSS สำหรับตารางที่ใช้ใน PDF */
+      .pdf-table-container {
+        display: none;
+        font-family: "Sarabun", "Kanit", sans-serif !important;
+        background: white;
+        padding: 20px;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      .pdf-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #1a73e8;
+      }
+
+      .pdf-header h2 {
+        color: #1a73e8;
+        font-size: 28px;
+        /* ← ใหญ่ขึ้นจาก 24px */
+        margin-bottom: 10px;
+        font-family: "Sarabun", sans-serif !important;
+        font-weight: 700;
+      }
+
+      .pdf-header h3 {
+        color: #666;
+        font-size: 20px;
+        /* ← ใหญ่ขึ้นจาก 18px */
+        margin-bottom: 20px;
+        font-family: "Sarabun", sans-serif !important;
+      }
+
+      .pdf-header .date-info {
+        color: #333;
+        font-size: 16px;
+        /* ← ใหญ่ขึ้นจาก 14px */
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .pdf-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: "Sarabun", sans-serif !important;
+        font-size: 14px;
+        /* ← ใหญ่ขึ้นจาก 12px (ตารางหลัก) */
+      }
+
+      .pdf-table th {
+        background-color: #1a73e8;
+        color: white;
+        font-weight: 600;
+        padding: 12px 10px;
+        /* ← เพิ่ม padding */
+        border: 1px solid #ddd;
+        text-align: center;
+        font-size: 16px;
+        /* ← ใหญ่ขึ้นจาก 13px (หัวตาราง) */
+      }
+
+      .pdf-table td {
+        padding: 10px 8px;
+        /* ← เพิ่ม padding */
+        border: 1px solid #ddd;
+        text-align: left;
+        font-size: 14px;
+        /* ← ใหญ่ขึ้นจาก 12px (ข้อมูลในตาราง) */
+      }
+
+      .pdf-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      .pdf-footer {
+        margin-top: 30px;
+        padding-top: 15px;
+        border-top: 1px solid #ddd;
+        font-size: 13px;
+        /* ← ใหญ่ขึ้นจาก 11px */
+        color: #666;
+        text-align: right;
+        font-family: "Sarabun", sans-serif !important;
+      }
+
+      /* สำหรับตารางที่มีข้อมูลเยอะ - ปรับให้ใหญ่ขึ้นด้วย */
+      .pdf-table.small-font {
+        font-size: 12px;
+        /* ← ใหญ่ขึ้นจาก 10px */
+      }
+
+      .pdf-table.small-font th,
+      .pdf-table.small-font td {
+        padding: 8px 6px;
+        /* ← เพิ่ม padding */
+        font-size: 12px;
+        /* ← ใหญ่ขึ้นจาก 10px */
+      }
+
+      /* เพิ่มคลาสสำหรับฟอนต์ใหญ่พิเศษ */
+      .pdf-table.large-font {
+        font-size: 16px;
+      }
+
+      .pdf-table.large-font th {
+        font-size: 18px;
+        padding: 14px 12px;
+      }
+
+      .pdf-table.large-font td {
+        font-size: 16px;
+        padding: 12px 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation (แสดงหลังล็อกอิน) -->
+    <nav
+      class="navbar navbar-expand-lg navbar-dark navbar-custom mb-4 d-none"
+      id="main-navbar"
+    >
+      <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+          <img
+            src="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png"
+            alt="AquaStock Logo"
+            width="32"
+            height="32"
+            class="me-2"
+          />
+          AquaStock System
+        </a>
+
+        <!-- Toggler -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item">
+              <a class="nav-link active" href="#stock-section">
+                <i class="fas fa-boxes me-1"></i> สต็อกปลาทั้งหมด
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#add-section">
+                <i class="fas fa-plus-circle me-1"></i> เพิ่มข้อมูล
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#logs-section">
+                <i class="fas fa-history me-1"></i> ประวัติการใช้งาน
+              </a>
+            </li>
+
+            <!-- User Profile -->
+            <li class="nav-item ms-lg-3">
+              <div
+                class="d-flex align-items-center user-profile"
+                id="user-profile"
+              >
+                <img
+                  id="user-avatar"
+                  src=""
+                  alt="User Avatar"
+                  class="rounded-circle me-2"
+                  width="36"
+                  height="36"
+                />
+
+                <div class="user-info d-none d-lg-block">
+                  <div class="user-name fw-semibold" id="user-name"></div>
+                  <div
+                    class="user-email small opacity-75"
+                    id="user-email"
+                  ></div>
+                </div>
+
+                <button
+                  class="btn btn-outline-light btn-sm ms-3"
+                  id="logout-btn"
+                >
+                  <i class="fas fa-sign-out-alt me-1"></i> ออกจากระบบ
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Login Container (จะแสดงทันที) -->
+    <div class="container" id="login-container">
+      <div class="login-container">
+        <div class="card login-card" data-aos="zoom-in">
+          <div class="card-body">
+            <div class="login-logo">
+              <img
+                src="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png"
+                alt="AquaStock Logo"
+                width="75%"
+                height="75%"
+                class="me-2"
+              />
+            </div>
+            <h2 class="login-title">AquaStock System</h2>
+            <p class="login-subtitle">ระบบการจัดการโรงเพาะพันธุ์ปลา</p>
+
+            <div class="d-grid mb-4">
+              <button class="btn btn-google" id="google-login-btn">
+                <img
+                  src="https://img.icons8.com/color/48/000000/google-logo.png"
+                  alt="Google Logo"
+                />
+                เชื่อมต่อด้วย Google
+              </button>
+            </div>
+
+            <div class="text-muted mb-3">
+              <small style="color: var(--danger-color)"
+                >หากไม่สามารถใช้งานได้ กรุณาติดต่อผู้ดูแลระบบ</small
+              >
+            </div>
+
+            <hr />
+
+            <div class="feature-list">
+              <h6 class="mb-3">คุณสมบัติของระบบ:</h6>
+              <ul>
+                <li>
+                  <i class="fas fa-check-circle"></i> ระบบทันสมัย ปลอดภัย
+                  รวดเร็ว
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  บันทึกและอัพเดทข้อมูลแบบเรียลไทม์
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  รองรับการใช้งานบนทุกอุปกรณ์
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Container (จะแสดงหลังจากล็อกอินแล้ว) -->
+    <div class="container d-none" id="main-container">
+      <!-- Header -->
+      <div class="row mb-4" data-aos="fade-up">
+        <div class="col-12">
+          <div class="stats-card">
+            <div class="row align-items-center">
+              <div class="col-md-8">
+                <h2 class="mb-3">
+                  <i class="fas fa-water me-2"></i>AquaStock System
+                </h2>
+                <p class="mb-0" id="welcome-message">
+                  ยินดีต้อนรับสู่ระบบ AquaStock System
+                </p>
+              </div>
+              <div class="col-md-4 text-center">
+                <div class="stats-number" id="total-fish">0</div>
+                <div class="stats-label">จำนวนปลาทั้งหมด (ตัว)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="row mb-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-md-3 col-sm-6">
+          <div class="card">
+            <div class="card-body text-center">
+              <i class="fas fa-fish fa-2x mb-3 fish-icon"></i>
+              <h5 class="card-title" id="species-count">0</h5>
+              <p class="card-text">ชนิดพันธุ์ปลาทั้งหมด</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card">
+            <div class="card-body text-center">
+              <i
+                class="fas fa-ruler-combined fa-2x mb-3"
+                style="color: var(--secondary-color)"
+              ></i>
+              <h5 class="card-title" id="avg-size">0</h5>
+              <p class="card-text">ขนาดโดยเฉลี่ยทั้งหมด</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card">
+            <div class="card-body text-center">
+              <i
+                class="fas fa-exchange-alt fa-2x mb-3"
+                style="color: var(--warning-color)"
+              ></i>
+              <h5 class="card-title" id="total-movements">0</h5>
+              <p class="card-text">การเคลื่อนไหวทั้งหมด</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card">
+            <div class="card-body text-center">
+              <i
+                class="fas fa-user-check fa-2x mb-3"
+                style="color: var(--danger-color)"
+              ></i>
+              <h5 class="card-title" id="last-updated">วันนี้</h5>
+              <p class="card-text">อัพเดตล่าสุด</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fish Stock Section -->
+      <div
+        class="row mb-5"
+        id="stock-section"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header d-flex justify-content-between align-items-center"
+            >
+              <h5 class="mb-0">
+                <i class="fas fa-boxes me-2"></i> สต็อกปลาทั้งหมด
+              </h5>
+              <div class="d-flex align-items-center">
+                <!-- Search box -->
+                <div class="input-group me-2" style="width: 250px">
+                  <span class="input-group-text" id="search-icon">
+                    <i class="fas fa-search"></i>
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="fish-search"
+                    placeholder="ค้นหาปลาตามชื่อ..."
+                    aria-label="Search"
+                    aria-describedby="search-icon"
+                  />
+                </div>
+                <button class="btn btn-primary btn-sm" id="refresh-stock">
+                  <i class="fas fa-sync-alt me-1"></i> รีเฟรชข้อมูล
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Stats info -->
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <div class="d-flex align-items-center">
+                    <span class="me-2">แสดง:</span>
+                    <select
+                      class="form-select form-select-sm"
+                      id="rows-per-page"
+                      style="width: auto"
+                    >
+                      <option value="10">10 รายการ</option>
+                      <option value="25">25 รายการ</option>
+                      <option value="50">50 รายการ</option>
+                      <option value="100">100 รายการ</option>
+                    </select>
+                    <span class="ms-3 text-muted" id="total-records-info">
+                      พบทั้งหมด 0 รายการ
+                    </span>
+                  </div>
+                </div>
+                <div class="col-md-6 text-end">
+                  <!-- ปุ่ม Export ทั้งหมด -->
+                  <div class="btn-group" role="group">
+                    <span class="me-2">ส่งออกข้อมูล : </span>
+                    <button
+                      class="btn btn-outline-primary btn-sm me-2"
+                      id="export-csv-btn"
+                    >
+                      <i class="fas fa-file-csv me-1"></i> CSV
+                    </button>
+                    <button
+                      class="btn btn-outline-success btn-sm me-2"
+                      id="export-jpeg-btn"
+                    >
+                      <i class="fas fa-file-image me-1"></i> JPEG
+                    </button>
+                    <button
+                      class="btn btn-outline-danger btn-sm"
+                      id="export-pdf-btn"
+                    >
+                      <i class="fas fa-file-pdf me-1"></i> PDF
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Container สำหรับ PDF (ซ่อนไว้) -->
+              <div id="pdf-container" class="pdf-table-container">
+                <div class="pdf-header">
+                  <h2>รายงานสต็อก</h2>
+                  <h3>AquaStock System</h3>
+                  <div class="date-info">
+                    วันที่: <span id="pdf-date">-</span> | เวลา:
+                    <span id="pdf-time">-</span>
+                  </div>
+                  <div class="date-info">
+                    จำนวนรายการทั้งหมด: <span id="pdf-total">0</span> รายการ |
+                    พิมพ์โดย: <span id="pdf-user">-</span>
+                  </div>
+                </div>
+
+                <table class="pdf-table" id="pdf-table-content">
+                  <thead>
+                    <tr>
+                      <th width="5%">ลำดับ</th>
+                      <th width="25%">ชนิดพันธุ์</th>
+                      <th width="15%">ขนาด</th>
+                      <th width="15%">จำนวน</th>
+                      <th width="20%">สถานะ</th>
+                      <th width="20%">รายละเอียด</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pdf-table-body">
+                    <!-- ข้อมูลจะถูกเพิ่มที่นี่ -->
+                  </tbody>
+                </table>
+
+                <div class="pdf-footer">
+                  <div>AquaStock System - ระบบการจัดการโรงเพาะพันธุ์ปลา</div>
+                  <div>ผู้ดูแลระบบ : Sumett Ampornsak</div>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table table-hover" id="fish-table">
+                  <thead>
+                    <tr>
+                      <th width="5%">
+                        <button class="btn btn-sm btn-link p-0" id="sort-id">
+                          ลำดับ <i class="fas fa-sort ms-1"></i>
+                        </button>
+                      </th>
+                      <th width="25%">
+                        <button class="btn btn-sm btn-link p-0" id="sort-name">
+                          ชนิดพันธุ์ <i class="fas fa-sort ms-1"></i>
+                        </button>
+                      </th>
+                      <th width="15%">
+                        <button class="btn btn-sm btn-link p-0" id="sort-size">
+                          ขนาด <i class="fas fa-sort ms-1"></i>
+                        </button>
+                      </th>
+                      <th width="15%">
+                        <button
+                          class="btn btn-sm btn-link p-0"
+                          id="sort-quantity"
+                        >
+                          จำนวน <i class="fas fa-sort ms-1"></i>
+                        </button>
+                      </th>
+                      <th width="20%">
+                        <button
+                          class="btn btn-sm btn-link p-0"
+                          id="sort-status"
+                        >
+                          สถานะ <i class="fas fa-sort ms-1"></i>
+                        </button>
+                      </th>
+                      <th width="20%">จัดการ</th>
+                    </tr>
+                  </thead>
+                  <tbody id="fish-table-body">
+                    <!-- Data will be loaded here -->
+                    <tr>
+                      <td colspan="6" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                          <span class="visually-hidden">กำลังโหลด...</span>
+                        </div>
+                        <p class="mt-2">กำลังโหลดข้อมูลสต็อกปลา...</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Pagination -->
+              <nav
+                aria-label="Page navigation"
+                id="pagination-container"
+                class="d-none"
+              >
+                <ul class="pagination justify-content-center mb-0">
+                  <li class="page-item disabled" id="prev-page">
+                    <a class="page-link" href="#" tabindex="-1">
+                      <i class="fas fa-chevron-left"></i>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="#" data-page="1">1</a>
+                  </li>
+                  <li class="page-item" id="next-page">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-chevron-right"></i>
+                    </a>
+                  </li>
+                </ul>
+                <div class="text-center mt-2">
+                  <small class="text-muted" id="page-info">หน้า 1 จาก 1</small>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Fish Form -->
+      <div
+        class="row mb-5"
+        id="add-section"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="mb-0">
+                <i class="fas fa-plus-circle me-2"></i> เพิ่มข้อมูลใหม่
+              </h5>
+            </div>
+            <div class="card-body">
+              <form id="add-fish-form">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="fish-name" class="form-label"
+                        ><span style="color: var(--danger-color)">*</span>
+                        ชื่อพันธุ์ปลา</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="fish-name"
+                        required
+                        placeholder="เช่น ปลานิล, ปลาตะเพียน"
+                      />
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="fish-size" class="form-label"
+                            ><span style="color: var(--danger-color)">*</span>
+                            ขนาดปลา</label
+                          >
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="fish-size"
+                            required
+                            min="0"
+                            step="0.1"
+                            placeholder="เช่น 5.5"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="size-unit" class="form-label">
+                            <span style="color: var(--danger-color)">*</span
+                            >หน่วยนับ</label
+                          >
+                          <select class="form-control" id="size-unit" required>
+                            <option value="นิ้ว">นิ้ว</option>
+                            <option value="เซนติเมตร">เซนติเมตร</option>
+                            <option value="มิลลิเมตร">มิลลิเมตร</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="fish-quantity" class="form-label"
+                        ><span style="color: var(--danger-color)">*</span>
+                        จำนวนปลา (ตัว)</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="fish-quantity"
+                        required
+                        min="1"
+                        placeholder="เช่น 100"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="fish-description" class="form-label"
+                        >รายละเอียดเพิ่มเติม</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="fish-description"
+                        rows="6"
+                        placeholder="ข้อมูลเพิ่มเติมเกี่ยวกับพันธุ์ปลา เช่น สี ลักษณะพิเศษ"
+                      ></textarea>
+                    </div>
+
+                    <div class="d-grid">
+                      <button type="submit" class="btn btn-success btn-lg">
+                        <i class="fas fa-save me-2"></i> บันทึกข้อมูล
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logs Section -->
+      <div
+        class="row mb-5"
+        id="logs-section"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header d-flex justify-content-between align-items-center"
+            >
+              <h5 class="mb-0">
+                <i class="fas fa-history me-2"></i> ประวัติการใช้งาน
+              </h5>
+              <button class="btn btn-primary btn-sm" id="toggle-logs-btn">
+                <i class="fas fa-eye me-1"></i> แสดงเพิ่ม
+              </button>
+            </div>
+            <div class="card-body">
+              <div id="logs-container">
+                <!-- Logs will be loaded here -->
+                <div class="text-center py-4">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">กำลังโหลด...</span>
+                  </div>
+                  <p class="mt-2">กำลังโหลดประวัติการใช้งาน...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer d-none" id="main-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h5><i class="fas fa-fish me-2"></i>AquaStock System</h5>
+            <p>ระบบการจัดการโรงเพาะพันธุ์ปลา V.2</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p>พัฒนาโดย Sumett Ampornsak</p>
+            <p class="mb-0">
+              &copy; <span id="year"></span> ระบบการจัดการโรงเพาะพันธุ์ปลา | All
+              Rights Reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Edit Fish Modal -->
+    <div class="modal fade" id="editFishModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="fas fa-edit me-2"></i> แก้ไขข้อมูลปลา
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="edit-fish-form">
+              <input type="hidden" id="edit-fish-id" />
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="edit-fish-name" class="form-label"
+                      >ชื่อพันธุ์ปลา</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-fish-name"
+                      required
+                    />
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="edit-fish-size" class="form-label"
+                          >ขนาดปลา</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="edit-fish-size"
+                          required
+                          min="0"
+                          step="0.1"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="edit-size-unit" class="form-label"
+                          >หน่วย</label
+                        >
+                        <select
+                          class="form-control"
+                          id="edit-size-unit"
+                          required
+                        >
+                          <option value="นิ้ว">นิ้ว</option>
+                          <option value="เซนติเมตร">เซนติเมตร</option>
+                          <option value="มิลลิเมตร">มิลลิเมตร</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="edit-fish-quantity" class="form-label"
+                      >จำนวนปลา (ตัว)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit-fish-quantity"
+                      required
+                      min="1"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="edit-fish-description" class="form-label"
+                      >รายละเอียดเพิ่มเติม</label
+                    >
+                    <textarea
+                      class="form-control"
+                      id="edit-fish-description"
+                      rows="5"
+                    ></textarea>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="edit-fish-status" class="form-label"
+                      >สถานะ</label
+                    >
+                    <select class="form-control" id="edit-fish-status" required>
+                      <option value="active">พร้อมใช้งาน</option>
+                      <option value="inactive">ไม่พร้อมใช้งาน</option>
+                      <option value="breeding">กำลังเพาะพันธุ์</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              ปิด
+            </button>
+            <button type="button" class="btn btn-primary" id="update-fish-btn">
+              <i class="fas fa-save me-1"></i> บันทึกข้อมูล
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- เพิ่ม library jsPDF สำหรับการสร้าง PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
+
+      // DOM Elements
+      const loginContainer = document.getElementById("login-container");
+      const mainNavbar = document.getElementById("main-navbar");
+      const mainContainer = document.getElementById("main-container");
+      const mainFooter = document.getElementById("main-footer");
+
+      const fishTableBody = document.getElementById("fish-table-body");
+      const addFishForm = document.getElementById("add-fish-form");
+      const updateFishBtn = document.getElementById("update-fish-btn");
+      const refreshStockBtn = document.getElementById("refresh-stock");
+      const logsContainer = document.getElementById("logs-container");
+
+      // Login/Logout elements
+      const googleLoginBtn = document.getElementById("google-login-btn");
+      const logoutBtn = document.getElementById("logout-btn");
+      const userProfile = document.getElementById("user-profile");
+      const userAvatar = document.getElementById("user-avatar");
+      const userName = document.getElementById("user-name");
+      const userEmail = document.getElementById("user-email");
+      const welcomeMessage = document.getElementById("welcome-message");
+
+      // Stats elements
+      const totalFishElement = document.getElementById("total-fish");
+      const speciesCountElement = document.getElementById("species-count");
+      const avgSizeElement = document.getElementById("avg-size");
+      const totalMovementsElement = document.getElementById("total-movements");
+      const lastUpdatedElement = document.getElementById("last-updated");
+
+      // PDF Elements
+      const pdfContainer = document.getElementById("pdf-container");
+      const pdfTableBody = document.getElementById("pdf-table-body");
+      const pdfDateElement = document.getElementById("pdf-date");
+      const pdfTimeElement = document.getElementById("pdf-time");
+      const pdfTotalElement = document.getElementById("pdf-total");
+      const pdfUserElement = document.getElementById("pdf-user");
+
+      // Current fish data
+      let fishData = [];
+      let currentUser = null;
+      let db = null;
+      let auth = null;
+      let isInitializing = false;
+      let showAllLogs = false;
+      let allLogsData = [];
+      let allFishData = [];
+      let filteredFishData = [];
+      let currentPage = 1;
+      let rowsPerPage = 10;
+      let sortField = "name"; // เปลี่ยนจาก "createdAt" เป็น "name"
+      let sortDirection = "desc"; // เรียงจาก ก-ฮ
+      let totalPages = 1;
+
+      // Firebase Configuration
+      const FIREBASE_CONFIG = {
+        apiKey: "AIzaSyC0bQCzHTlz1DHHQ4mz7vf0-ZQZXHtAQME",
+        authDomain: "fish-farm-stock-systems.firebaseapp.com",
+        databaseURL:
+          "https://fish-farm-stock-systems-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "fish-farm-stock-systems",
+        storageBucket: "fish-farm-stock-systems.firebasestorage.app",
+        messagingSenderId: "818200107184",
+        appId: "1:818200107184:web:da57af0d8061f28ef70375",
+      };
+
+      // Initialize the application
+      document.addEventListener("DOMContentLoaded", function () {
+        // Set current date
+        const now = new Date();
+        const options = { year: "numeric", month: "long", day: "numeric" };
+        lastUpdatedElement.textContent = now.toLocaleDateString(
+          "th-TH",
+          options
+        );
+
+        // Initialize Firebase
+        initializeFirebase();
+
+        // Set current year in footer
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Add event listeners
+        const toggleLogsBtn = document.getElementById("toggle-logs-btn");
+        if (toggleLogsBtn) {
+          toggleLogsBtn.addEventListener("click", toggleLogsView);
+        }
+
+        // ปุ่ม Export
+        const exportJpegBtn = document.getElementById("export-jpeg-btn");
+        const exportPdfBtn = document.getElementById("export-pdf-btn");
+        const exportCsvBtn = document.getElementById("export-csv-btn");
+
+        if (exportJpegBtn) {
+          exportJpegBtn.addEventListener("click", exportToJPEG);
+        }
+        if (exportPdfBtn) {
+          exportPdfBtn.addEventListener("click", exportToPDF);
+        }
+        if (exportCsvBtn) {
+          exportCsvBtn.addEventListener("click", exportToCSV);
+        }
+
+        const fishSearch = document.getElementById("fish-search");
+        const rowsPerPageSelect = document.getElementById("rows-per-page");
+        const sortIdBtn = document.getElementById("sort-id");
+        const sortNameBtn = document.getElementById("sort-name");
+        const sortSizeBtn = document.getElementById("sort-size");
+        const sortQuantityBtn = document.getElementById("sort-quantity");
+        const sortStatusBtn = document.getElementById("sort-status");
+
+        if (fishSearch) {
+          fishSearch.addEventListener(
+            "input",
+            debounce(function () {
+              searchFish(this.value);
+            }, 300)
+          );
+        }
+
+        if (rowsPerPageSelect) {
+          rowsPerPageSelect.addEventListener("change", function () {
+            rowsPerPage = parseInt(this.value);
+            currentPage = 1;
+            renderFishTable();
+          });
+        }
+
+        // Event Listeners สำหรับการเรียงลำดับ
+        if (sortIdBtn)
+          sortIdBtn.addEventListener("click", () => sortTable("index"));
+        if (sortNameBtn)
+          sortNameBtn.addEventListener("click", () => sortTable("name"));
+        if (sortSizeBtn)
+          sortSizeBtn.addEventListener("click", () => sortTable("size"));
+        if (sortQuantityBtn)
+          sortQuantityBtn.addEventListener("click", () =>
+            sortTable("quantity")
+          );
+        if (sortStatusBtn)
+          sortStatusBtn.addEventListener("click", () => sortTable("status"));
+
+        // เพิ่ม Event Listeners สำหรับ pagination
+        document.addEventListener("click", function (e) {
+          if (
+            e.target.classList.contains("page-link") &&
+            !e.target.parentElement.classList.contains("disabled")
+          ) {
+            e.preventDefault();
+            const page = e.target.getAttribute("data-page");
+            if (page) {
+              goToPage(parseInt(page));
+            } else if (e.target.closest("#prev-page")) {
+              goToPage(currentPage - 1);
+            } else if (e.target.closest("#next-page")) {
+              goToPage(currentPage + 1);
+            }
+          }
+        });
+      });
+
+      // ฟังก์ชันเตรียมข้อมูลสำหรับ PDF
+      function preparePDFData(itemsToExport) {
+        // เตรียมวันที่และเวลา
+        const now = new Date();
+        const dateString = now.toLocaleDateString("th-TH", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        const timeString = now.toLocaleTimeString("th-TH");
+
+        // อัพเดทข้อมูลใน PDF container
+        pdfDateElement.textContent = dateString;
+        pdfTimeElement.textContent = timeString;
+        pdfTotalElement.textContent = itemsToExport.length.toLocaleString();
+        pdfUserElement.textContent = currentUser
+          ? currentUser.displayName || "ผู้ใช้"
+          : "ไม่ระบุชื่อ";
+
+        // สร้างตาราง PDF ด้วยฟอนต์ใหญ่
+        let pdfHTML = "";
+
+        itemsToExport.forEach((fish, index) => {
+          const quantity = Number(fish.quantity) || 0;
+          const size = Number(fish.size) || 0;
+
+          let statusText = "";
+          switch (fish.status) {
+            case "active":
+              statusText = "พร้อมใช้งาน";
+              break;
+            case "inactive":
+              statusText = "ไม่พร้อมใช้งาน";
+              break;
+            case "breeding":
+              statusText = "กำลังเพาะพันธุ์";
+              break;
+            default:
+              statusText = "พร้อมใช้งาน";
+          }
+
+          // ใช้ inline style เพื่อกำหนดฟอนต์ใหญ่
+          pdfHTML += `
+            <tr>
+                <td style="text-align: center; font-size: 15px; font-weight: bold;">${
+                  index + 1
+                }</td>
+                <td style="font-size: 15px;"><strong>${
+                  fish.name || "ไม่ทราบชื่อ"
+                }</strong></td>
+                <td style="text-align: center; font-size: 15px;"><strong>${size}</strong> ${
+            fish.unit || "นิ้ว"
+          }</td>
+                <td style="text-align: center; font-size: 15px; font-weight: bold;">${quantity.toLocaleString()} ตัว</td>
+                <td style="text-align: center; font-size: 15px;"><strong>${statusText}</strong></td>
+                <td style="font-size: 14px;">${fish.description || "-"}</td>
+            </tr>
+        `;
+        });
+
+        pdfTableBody.innerHTML = pdfHTML;
+
+        // ปรับขนาดฟอนต์ตามจำนวนรายการ - ใช้ฟอนต์ใหญ่กว่าเดิม
+        const pdfTable = document.getElementById("pdf-table-content");
+        // ถ้าข้อมูลไม่เยอะมาก ให้ใช้ฟอนต์ใหญ่
+        if (itemsToExport.length <= 30) {
+          pdfTable.classList.add("large-font");
+          pdfTable.classList.remove("small-font");
+
+          // ปรับเพิ่มเติมสำหรับข้อมูลน้อย
+          pdfTable.style.fontSize = "16px";
+          pdfTable.querySelectorAll("th").forEach((th) => {
+            th.style.fontSize = "18px";
+            th.style.padding = "14px 12px";
+            th.style.fontWeight = "bold";
+          });
+          pdfTable.querySelectorAll("td").forEach((td) => {
+            td.style.fontSize = "16px";
+            td.style.padding = "12px 10px";
+          });
+        }
+        // ถ้าข้อมูลเยอะปานกลาง
+        else if (itemsToExport.length <= 50) {
+          pdfTable.classList.remove("large-font", "small-font");
+          pdfTable.style.fontSize = "14px";
+          pdfTable.querySelectorAll("th").forEach((th) => {
+            th.style.fontSize = "16px";
+            th.style.padding = "12px 10px";
+          });
+          pdfTable.querySelectorAll("td").forEach((td) => {
+            td.style.fontSize = "14px";
+            td.style.padding = "10px 8px";
+          });
+        }
+        // ถ้าข้อมูลเยอะมาก
+        else {
+          pdfTable.classList.add("small-font");
+          pdfTable.classList.remove("large-font");
+          // แต่ยังให้ใหญ่กว่าค่าเดิม
+          pdfTable.style.fontSize = "13px";
+          pdfTable.querySelectorAll("th, td").forEach((cell) => {
+            cell.style.fontSize = "13px";
+          });
+        }
+      }
+      // ฟังก์ชันส่งออกเป็น PDF (แก้ไขแล้ว - ใช้ html2canvas)
+      function exportToPDF() {
+        if (filteredFishData.length === 0) {
+          Swal.fire({
+            icon: "warning",
+            title: "ไม่มีข้อมูล",
+            text: "ไม่มีข้อมูลปลาที่จะส่งออกเป็น PDF",
+          });
+          return;
+        }
+
+        // แสดง dialog สำหรับเลือกตัวเลือก
+        Swal.fire({
+          title: "ส่งออกเป็น PDF",
+          html: `
+            <div class="text-start">
+                <p>พบข้อมูลทั้งหมด <strong>${filteredFishData.length}</strong> รายการ</p>
+                <div class="mb-3">
+                    <label class="form-label">ขนาดฟอนต์ตาราง:</label>
+                    <select class="form-select" id="pdf-font-size">
+                        <option value="normal" selected>ปกติ (ค่าเริ่มต้น)</option>
+                        <option value="large" >ใหญ่</option>
+                        <option value="xlarge">ใหญ่มาก</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">จำนวนรายการที่จะส่งออก:</label>
+                    <select class="form-select" id="pdf-item-count">
+                        <option value="all">ทั้งหมด (${filteredFishData.length} รายการ)</option>
+                        <option value="10">10 รายการแรก</option>
+                        <option value="20">20 รายการแรก</option>
+                        <option value="30">30 รายการแรก</option>
+                        <option value="50">50 รายการแรก</option>
+                        <option value="100">100 รายการแรก</option>
+                        <option value="custom">กำหนดเอง</option>
+                    </select>
+                </div>
+                <div id="pdf-custom-count-div" class="d-none mt-3">
+                    <label class="form-label">ระบุจำนวนรายการ:</label>
+                    <input type="number" class="form-control" id="pdf-custom-count" 
+                           min="1" max="${filteredFishData.length}" 
+                           value="100" placeholder="ระบุจำนวนรายการ">
+                    <small class="text-muted">จำนวนสูงสุด ${filteredFishData.length} รายการ</small>
+                </div>
+                <div class="alert alert-info mt-3">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <small>แนะนำ: ถ้าเลือกจำนวนรายการน้อยลง ตัวหนังสือจะใหญ่ขึ้นและอ่านง่ายขึ้น</small>
+                </div>
+            </div>
+        `,
+          showCancelButton: true,
+          confirmButtonText: "สร้าง PDF",
+          cancelButtonText: "ยกเลิก",
+          didOpen: () => {
+            const itemCountSelect = document.getElementById("pdf-item-count");
+            const customCountDiv = document.getElementById(
+              "pdf-custom-count-div"
+            );
+
+            itemCountSelect.addEventListener("change", function () {
+              if (this.value === "custom") {
+                customCountDiv.classList.remove("d-none");
+              } else {
+                customCountDiv.classList.add("d-none");
+              }
+            });
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            generatePDF();
+          }
+        });
+
+        async function generatePDF() {
+          try {
+            // แสดง loading
+            const exportPdfBtn = document.getElementById("export-pdf-btn");
+            const originalHTML = exportPdfBtn.innerHTML;
+            exportPdfBtn.innerHTML =
+              '<i class="fas fa-spinner fa-spin me-1"></i> กำลังสร้าง...';
+            exportPdfBtn.disabled = true;
+
+            // กำหนดจำนวนรายการที่จะแสดง
+            const itemCountSelect = document.getElementById("pdf-item-count");
+            const fontSizeSelect = document.getElementById("pdf-font-size");
+            const selectedFontSize = fontSizeSelect
+              ? fontSizeSelect.value
+              : "large";
+
+            let itemsToExport = [];
+            let exportCount = 0;
+
+            if (itemCountSelect.value === "all") {
+              itemsToExport = [...filteredFishData];
+              exportCount = filteredFishData.length;
+            } else if (itemCountSelect.value === "custom") {
+              const customCountInput =
+                document.getElementById("pdf-custom-count");
+              const count = parseInt(customCountInput.value) || 100;
+              exportCount = Math.min(count, filteredFishData.length);
+              itemsToExport = filteredFishData.slice(0, exportCount);
+            } else {
+              const count = parseInt(itemCountSelect.value);
+              exportCount = Math.min(count, filteredFishData.length);
+              itemsToExport = filteredFishData.slice(0, exportCount);
+            }
+
+            if (exportCount === 0) {
+              Swal.fire({
+                icon: "warning",
+                title: "ไม่มีข้อมูล",
+                text: "ไม่มีข้อมูลที่จะส่งออก",
+              });
+
+              // รีเซ็ตปุ่ม
+              exportPdfBtn.innerHTML = originalHTML;
+              exportPdfBtn.disabled = false;
+              return;
+            }
+
+            // แสดงข้อความกำลังประมวลผล
+            Swal.fire({
+              title: "กำลังสร้าง PDF",
+              html: `กำลังเตรียมข้อมูล ${exportCount} รายการ...`,
+              allowOutsideClick: false,
+              didOpen: () => {
+                Swal.showLoading();
+              },
+            });
+
+            // เตรียมข้อมูลสำหรับ PDF
+            preparePDFData(itemsToExport);
+
+            // ปรับฟอนต์ตามที่เลือก
+            const pdfTable = document.getElementById("pdf-table-content");
+
+            if (selectedFontSize === "xlarge") {
+              // ใหญ่มาก - เหมาะสำหรับจำนวนน้อย
+              pdfContainer.style.fontSize = "28px";
+              pdfTable.style.fontSize = "26px";
+              pdfTable.querySelectorAll("th").forEach((th) => {
+                th.style.fontSize = "26px";
+                th.style.padding = "24px 22px";
+              });
+              pdfTable.querySelectorAll("td").forEach((td) => {
+                td.style.fontSize = "26px";
+                td.style.padding = "24px 22px";
+              });
+            } else if (selectedFontSize === "large") {
+              // ใหญ่
+              pdfContainer.style.fontSize = "26px";
+              pdfTable.style.fontSize = "24px";
+              pdfTable.querySelectorAll("th").forEach((th) => {
+                th.style.fontSize = "24px";
+                th.style.padding = "22px 20px";
+              });
+              pdfTable.querySelectorAll("td").forEach((td) => {
+                td.style.fontSize = "24px";
+                td.style.padding = "22px 20px";
+              });
+            } else {
+              // ปกติ
+              pdfContainer.style.fontSize = "24px";
+              pdfTable.style.fontSize = "22px";
+              pdfTable.querySelectorAll("th").forEach((th) => {
+                th.style.fontSize = "22px";
+                th.style.padding = "20px 18px";
+              });
+              pdfTable.querySelectorAll("td").forEach((td) => {
+                td.style.fontSize = "22px";
+                td.style.padding = "20px 18px";
+              });
+            }
+
+            // แสดง container ของ PDF
+            pdfContainer.style.display = "block";
+
+            // รอให้ DOM อัพเดท
+            await new Promise((resolve) => setTimeout(resolve, 500));
+
+            // ใช้ html2canvas จับภาพ
+            const canvas = await html2canvas(pdfContainer, {
+              scale: 2,
+              useCORS: true,
+              logging: false,
+              backgroundColor: "#ffffff",
+              allowTaint: true,
+              onclone: function (clonedDoc) {
+                // ทำให้แน่ใจว่าฟอนต์ถูกโหลดใน cloned document
+                const container = clonedDoc.getElementById("pdf-container");
+                if (container) {
+                  container.style.fontFamily = "'Sarabun', 'Kanit', sans-serif";
+                }
+              },
+            });
+
+            // ซ่อน container
+            pdfContainer.style.display = "none";
+
+            // สร้าง PDF จาก canvas
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF("p", "mm", "a4");
+
+            const imgWidth = 190; // mm
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            let heightLeft = imgHeight;
+            let position = 10;
+
+            // เพิ่มภาพลงใน PDF
+            pdf.addImage(canvas, "PNG", 10, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            // เพิ่มหน้าอื่นถ้าจำเป็น
+            while (heightLeft >= 0) {
+              position = heightLeft - imgHeight;
+              pdf.addPage();
+              pdf.addImage(canvas, "PNG", 10, position, imgWidth, imgHeight);
+              heightLeft -= pageHeight;
+            }
+
+            // บันทึกไฟล์
+            const fileName = `รายงานสต็อก_${
+              new Date().toISOString().split("T")[0]
+            }_${exportCount}_รายการ.pdf`;
+            pdf.save(fileName);
+
+            // ปิด loading
+            Swal.close();
+
+            // รีเซ็ตปุ่ม
+            exportPdfBtn.innerHTML = originalHTML;
+            exportPdfBtn.disabled = false;
+
+            Swal.fire({
+              icon: "success",
+              title: "ส่งออกสำเร็จ!",
+              html: `
+                    <div class="text-start">
+                        <p>ส่งออกข้อมูล <strong>${exportCount}</strong> รายการเป็นไฟล์ PDF แล้ว</p>
+                        <p>ชื่อไฟล์: <strong>${fileName}</strong></p>
+                        <div class="alert alert-success mt-3">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>จำนวนหน้า:</strong> ${pdf.internal.getNumberOfPages()} หน้า<br>
+                            <strong>จำนวนรายการ:</strong> ${exportCount} รายการ<br>
+                            <strong>ขนาดฟอนต์:</strong> ${
+                              selectedFontSize === "xlarge"
+                                ? "ใหญ่มาก"
+                                : selectedFontSize === "large"
+                                ? "ใหญ่"
+                                : "ปกติ"
+                            }
+                        </div>
+                    </div>
+                `,
+              timer: 3000,
+              showConfirmButton: false,
+            });
+          } catch (error) {
+            console.error("Error generating PDF:", error);
+
+            // ซ่อน container
+            pdfContainer.style.display = "none";
+
+            // รีเซ็ตปุ่ม
+            const exportPdfBtn = document.getElementById("export-pdf-btn");
+            exportPdfBtn.innerHTML = '<i class="fas fa-file-pdf me-1"></i> PDF';
+            exportPdfBtn.disabled = false;
+
+            // ปิด loading
+            Swal.close();
+
+            Swal.fire({
+              icon: "error",
+              title: "เกิดข้อผิดพลาด!",
+              html: `
+                    <div class="text-start">
+                        <p>ไม่สามารถสร้างไฟล์ PDF ได้</p>
+                        <div class="alert alert-danger mt-3">
+                            <strong>ข้อผิดพลาด:</strong> ${error.message}<br>
+                            <small>กรุณาลองลดจำนวนรายการที่ต้องการส่งออก</small>
+                        </div>
+                    </div>
+                `,
+            });
+          }
+        }
+      }
+
+      // ฟังก์ชันส่งออกเป็น JPEG (แก้ไขแล้ว - เพิ่มตัวเลือกจำนวนรายการ)
+      function exportToJPEG() {
+        if (filteredFishData.length === 0) {
+          Swal.fire({
+            icon: "warning",
+            title: "ไม่มีข้อมูล",
+            text: "ไม่มีข้อมูลปลาที่จะส่งออกเป็นรูปภาพ",
+          });
+          return;
+        }
+
+        Swal.fire({
+          title: "ส่งออกเป็น JPEG",
+          html: `
+            <div class="text-start">
+                <p>พบข้อมูลทั้งหมด <strong>${filteredFishData.length}</strong> รายการ</p>
+                <div class="mb-3">
+                    <label class="form-label">จำนวนรายการที่จะส่งออก:</label>
+                    <select class="form-select" id="jpeg-item-count">
+                        <option value="all">ทั้งหมด (${filteredFishData.length} รายการ)</option>
+                        <option value="10">10 รายการแรก</option>
+                        <option value="20">20 รายการแรก</option>
+                        <option value="30">30 รายการแรก</option>
+                        <option value="50">50 รายการแรก</option>
+                        <option value="custom">กำหนดเอง</option>
+                    </select>
+                </div>
+                <div id="jpeg-custom-count-div" class="d-none mt-3">
+                    <label class="form-label">ระบุจำนวนรายการ:</label>
+                    <input type="number" class="form-control" id="jpeg-custom-count" 
+                           min="1" max="${filteredFishData.length}" 
+                           value="100" placeholder="ระบุจำนวนรายการ">
+                    <small class="text-muted">สูงสุด ${filteredFishData.length} รายการ</small>
+                </div>
+            </div>
+        `,
+          showCancelButton: true,
+          confirmButtonText: "สร้าง JPEG",
+          cancelButtonText: "ยกเลิก",
+          didOpen: () => {
+            const itemCountSelect = document.getElementById("jpeg-item-count");
+            const customCountDiv = document.getElementById(
+              "jpeg-custom-count-div"
+            );
+
+            itemCountSelect.addEventListener("change", function () {
+              if (this.value === "custom") {
+                customCountDiv.classList.remove("d-none");
+              } else {
+                customCountDiv.classList.add("d-none");
+              }
+            });
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            generateJPEG();
+          }
+        });
+
+        function generateJPEG() {
+          // กำหนดจำนวนรายการที่จะแสดง
+          const itemCountSelect = document.getElementById("jpeg-item-count");
+          let itemsToExport = [];
+          let exportCount = 0;
+
+          if (itemCountSelect.value === "all") {
+            itemsToExport = [...filteredFishData];
+            exportCount = filteredFishData.length;
+          } else if (itemCountSelect.value === "custom") {
+            const customCountInput =
+              document.getElementById("jpeg-custom-count");
+            const count = parseInt(customCountInput.value) || 100;
+            exportCount = Math.min(count, filteredFishData.length);
+            itemsToExport = filteredFishData.slice(0, exportCount);
+          } else {
+            const count = parseInt(itemCountSelect.value);
+            exportCount = Math.min(count, filteredFishData.length);
+            itemsToExport = filteredFishData.slice(0, exportCount);
+          }
+
+          if (exportCount === 0) {
+            Swal.fire({
+              icon: "warning",
+              title: "ไม่มีข้อมูล",
+              text: "ไม่มีข้อมูลที่จะส่งออก",
+            });
+            return;
+          }
+
+          // เตรียมข้อมูลสำหรับ JPEG
+          preparePDFData(itemsToExport);
+
+          // แสดง container
+          pdfContainer.style.display = "block";
+
+          // แสดง loading
+          Swal.fire({
+            title: "กำลังสร้าง JPEG",
+            html: `กำลังเตรียมภาพจาก ${exportCount} รายการ...`,
+            showCancelButton: false,
+            showConfirmButton: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
+
+          // ใช้ html2canvas จับภาพ
+          setTimeout(() => {
+            html2canvas(pdfContainer, {
+              scale: 2,
+              useCORS: true,
+              logging: false,
+              backgroundColor: "#ffffff",
+            })
+              .then((canvas) => {
+                // แปลง canvas เป็น JPEG
+                const image = canvas.toDataURL("image/jpeg", 0.9);
+
+                // สร้างลิงก์สำหรับดาวน์โหลด
+                const link = document.createElement("a");
+                link.href = image;
+                link.download = `รายงานสต็อก_${
+                  new Date().toISOString().split("T")[0]
+                }_${exportCount}_รายการ.jpg`;
+                link.click();
+
+                // ซ่อน container
+                pdfContainer.style.display = "none";
+
+                // ปิด loading
+                Swal.close();
+
+                Swal.fire({
+                  icon: "success",
+                  title: "ส่งออกสำเร็จ!",
+                  html: `
+                        <div class="text-start">
+                            <p>ส่งออกข้อมูล <strong>${exportCount}</strong> รายการเป็นไฟล์ JPEG แล้ว</p>
+                            <p>ชื่อไฟล์: <strong>${link.download}</strong></p>
+                        </div>
+                    `,
+                  timer: 3000,
+                  showConfirmButton: false,
+                });
+              })
+              .catch((error) => {
+                // ซ่อน container
+                pdfContainer.style.display = "none";
+
+                // ปิด loading
+                Swal.close();
+
+                Swal.fire({
+                  icon: "error",
+                  title: "ผิดพลาด!",
+                  text: "ไม่สามารถสร้าง JPEG ได้: " + error.message,
+                });
+              });
+          }, 500);
+        }
+      }
+
+      // ฟังก์ชันส่งออกเป็น CSV
+      function exportToCSV() {
+        if (filteredFishData.length === 0) {
+          Swal.fire({
+            icon: "warning",
+            title: "ไม่มีข้อมูล",
+            text: "ไม่มีข้อมูลปลาที่จะส่งออก",
+          });
+          return;
+        }
+
+        const headers = [
+          "ลำดับ",
+          "ชื่อพันธุ์ปลา",
+          "ขนาด",
+          "หน่วย",
+          "จำนวน",
+          "สถานะ",
+          "รายละเอียด",
+          "สร้างเมื่อ",
+        ];
+
+        const csvData = filteredFishData.map((fish, index) => {
+          let statusText = "";
+          switch (fish.status) {
+            case "active":
+              statusText = "พร้อมใช้งาน";
+              break;
+            case "inactive":
+              statusText = "ไม่พร้อมใช้งาน";
+              break;
+            case "breeding":
+              statusText = "กำลังเพาะพันธุ์";
+              break;
+            default:
+              statusText = "พร้อมใช้งาน";
+          }
+
+          let createdAt = "";
+          try {
+            if (fish.createdAt && typeof fish.createdAt.toDate === "function") {
+              const date = fish.createdAt.toDate();
+              createdAt = date.toLocaleDateString("th-TH");
+            }
+          } catch (e) {
+            createdAt = "";
+          }
+
+          return [
+            index + 1,
+            fish.name || "",
+            fish.size || 0,
+            fish.unit || "นิ้ว",
+            fish.quantity || 0,
+            statusText,
+            fish.description || "",
+            createdAt,
+          ];
+        });
+
+        const csvContent = [
+          headers.join(","),
+          ...csvData.map((row) =>
+            row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(",")
+          ),
+        ].join("\n");
+
+        const blob = new Blob(["\uFEFF" + csvContent], {
+          type: "text/csv;charset=utf-8;",
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `รายงานสต็อก_${
+          new Date().toISOString().split("T")[0]
+        }.csv`;
+        link.click();
+
+        Swal.fire({
+          icon: "success",
+          title: "ส่งออกสำเร็จ!",
+          text: `ส่งออกข้อมูล ${filteredFishData.length} รายการเป็นไฟล์ CSV แล้ว`,
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      }
+
+      // Initialize Firebase
+      function initializeFirebase() {
+        try {
+          if (isInitializing) return;
+          isInitializing = true;
+
+          if (!firebase.apps.length) {
+            firebase.initializeApp(FIREBASE_CONFIG);
+          }
+
+          db = firebase.firestore();
+          auth = firebase.auth();
+
+          // Check if user is already logged in
+          auth.onAuthStateChanged((user) => {
+            if (user) {
+              currentUser = user;
+              showMainApp();
+            } else {
+              showLoginScreen();
+            }
+          });
+
+          showLoginScreen();
+        } catch (error) {
+          console.error("Error initializing Firebase:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Firebase Error",
+            text: "เกิดข้อผิดพลาดในการเชื่อมต่อ Firebase: " + error.message,
+          });
+          isInitializing = false;
+        }
+      }
+
+      // Google Login
+      googleLoginBtn.addEventListener("click", function () {
+        if (!auth) {
+          Swal.fire({
+            icon: "error",
+            title: "Firebase ไม่ได้ตั้งค่า",
+            text: "กรุณารอสักครู่ให้ระบบเตรียมความพร้อม",
+          });
+          return;
+        }
+
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope("email");
+        provider.addScope("profile");
+
+        auth
+          .signInWithPopup(provider)
+          .then((result) => {
+            handleLoginSuccess(result);
+          })
+          .catch((error) => {
+            handleLoginError(error);
+          });
+      });
+
+      // Function สำหรับจัดการการล็อกอินสำเร็จ
+      function handleLoginSuccess(result) {
+        currentUser = result.user;
+
+        Swal.fire({
+          icon: "success",
+          title: "ล็อกอินสำเร็จ!",
+          text: `ยินดีต้อนรับ ${currentUser.displayName || "ผู้ใช้"}`,
+          timer: 2000,
+          showConfirmButton: false,
+        }).then(() => {
+          showMainApp();
+
+          // Add log after a short delay
+          setTimeout(() => {
+            if (currentUser) {
+              addLog(
+                "ระบบ",
+                `ผู้ใช้ ${
+                  currentUser.displayName || "ผู้ใช้"
+                } ล็อกอินเข้าสู่ระบบ`
+              );
+            }
+          }, 1000);
+        });
+      }
+
+      // Function สำหรับจัดการ error
+      function handleLoginError(error) {
+        let errorMessage = "เกิดข้อผิดพลาดในการล็อกอิน";
+        let showAlert = true;
+
+        switch (error.code) {
+          case "auth/popup-closed-by-user":
+            errorMessage = "คุณได้ปิดหน้าต่างล็อกอิน";
+            showAlert = false;
+            break;
+          case "auth/network-request-failed":
+            errorMessage =
+              "เกิดปัญหาเกี่ยวกับเครือข่าย กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต";
+            break;
+          case "auth/unauthorized-domain":
+            errorMessage = "โดเมนนี้ไม่ได้รับอนุญาต กรุณาใช้ลิงก์ที่ถูกต้อง";
+            break;
+          default:
+            errorMessage = error.message || "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ";
+        }
+
+        if (showAlert) {
+          Swal.fire({
+            icon: "error",
+            title: "ล็อกอินไม่สำเร็จ",
+            text: errorMessage,
+            footer: error.code ? `Error code: ${error.code}` : "",
+          });
+        }
+      }
+
+      // Logout
+      logoutBtn.addEventListener("click", function () {
+        Swal.fire({
+          title: "ยืนยันการออกจากระบบ?",
+          text: "คุณต้องการออกจากระบบหรือไม่?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "ใช่, ออกจากระบบ",
+          cancelButtonText: "ยกเลิก",
+          confirmButtonColor: "#d33",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Add log for logout
+            if (currentUser) {
+              addLog(
+                "ระบบ",
+                `ผู้ใช้ ${currentUser.displayName || "ผู้ใช้"} ออกจากระบบ`
+              );
+            }
+
+            auth
+              .signOut()
+              .then(() => {
+                Swal.fire({
+                  icon: "success",
+                  title: "ออกจากระบบแล้ว!",
+                  text: "คุณได้ออกจากระบบเรียบร้อยแล้ว",
+                  timer: 1500,
+                  showConfirmButton: false,
+                }).then(() => {
+                  showLoginScreen();
+                });
+              })
+              .catch((error) => {
+                console.error("Error during logout: ", error);
+                Swal.fire({
+                  icon: "error",
+                  title: "เกิดข้อผิดพลาด!",
+                  text: "ไม่สามารถออกจากระบบได้",
+                  footer: error.message,
+                });
+              });
+          }
+        });
+      });
+
+      // Show main application
+      function showMainApp() {
+        loginContainer.classList.add("d-none");
+        mainNavbar.classList.remove("d-none");
+        mainContainer.classList.remove("d-none");
+        mainFooter.classList.remove("d-none");
+
+        updateUserProfile();
+
+        setTimeout(() => {
+          afterFishOperation();
+          loadLogs();
+        }, 300);
+
+        window.scrollTo(0, 0);
+      }
+
+      // Show login screen
+      function showLoginScreen() {
+        loginContainer.classList.remove("d-none");
+        mainNavbar.classList.add("d-none");
+        mainContainer.classList.add("d-none");
+        mainFooter.classList.add("d-none");
+        currentUser = null;
+      }
+
+      // Update user profile in navbar
+      function updateUserProfile() {
+        if (currentUser) {
+          userAvatar.src =
+            currentUser.photoURL ||
+            "https://img.icons8.com/?size=48&id=84898&format=png";
+          userName.textContent = currentUser.displayName || "ผู้ใช้";
+          userEmail.textContent = currentUser.email || "ไม่ทราบอีเมล";
+          welcomeMessage.textContent = `ยินดีต้อนรับ ${
+            currentUser.displayName || "ผู้ใช้"
+          }`;
+        }
+      }
+
+      // ฟังก์ชัน debounce สำหรับการค้นหา
+      function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      }
+
+      // ฟังก์ชันค้นหาปลา
+      function searchFish(searchTerm) {
+        if (!searchTerm.trim()) {
+          filteredFishData = [...allFishData];
+        } else {
+          const term = searchTerm.toLowerCase().trim();
+          filteredFishData = allFishData.filter(
+            (fish) =>
+              (fish.name && fish.name.toLowerCase().includes(term)) ||
+              (fish.description &&
+                fish.description.toLowerCase().includes(term)) ||
+              (fish.status && fish.status.toLowerCase().includes(term))
+          );
+        }
+
+        currentPage = 1;
+        renderFishTable();
+      }
+
+      // ฟังก์ชันเรียงลำดับตาราง
+      function sortTable(field) {
+        if (sortField === field) {
+          sortDirection = sortDirection === "asc" ? "desc" : "asc";
+        } else {
+          sortField = field;
+          sortDirection = "asc";
+        }
+
+        updateSortIcons();
+
+        filteredFishData.sort((a, b) => {
+          let aValue, bValue;
+
+          switch (field) {
+            case "index":
+              aValue = allFishData.indexOf(a);
+              bValue = allFishData.indexOf(b);
+              break;
+            case "name":
+              // เรียงตามภาษาไทย ก-ฮ
+              aValue = (a.name || "").toLowerCase();
+              bValue = (b.name || "").toLowerCase();
+              break;
+            case "size":
+              aValue = parseFloat(a.size) || 0;
+              bValue = parseFloat(b.size) || 0;
+              break;
+            case "quantity":
+              aValue = parseInt(a.quantity) || 0;
+              bValue = parseInt(b.quantity) || 0;
+              break;
+            case "status":
+              aValue = a.status || "";
+              bValue = b.status || "";
+              break;
+            default:
+              aValue = a[field] || "";
+              bValue = b[field] || "";
+          }
+
+          // สำหรับการเรียงภาษาไทย
+          if (field === "name") {
+            if (sortDirection === "asc") {
+              return aValue.localeCompare(bValue, "th");
+            } else {
+              return bValue.localeCompare(aValue, "th");
+            }
+          } else {
+            // สำหรับการเรียงประเภทอื่นๆ
+            if (sortDirection === "asc") {
+              return aValue > bValue ? 1 : -1;
+            } else {
+              return aValue < bValue ? 1 : -1;
+            }
+          }
+        });
+
+        renderFishTable();
+      }
+
+      // อัพเดทไอคอนการเรียงลำดับ
+      function updateSortIcons() {
+        const icons = {
+          index: document.querySelector("#sort-id i"),
+          name: document.querySelector("#sort-name i"),
+          size: document.querySelector("#sort-size i"),
+          quantity: document.querySelector("#sort-quantity i"),
+          status: document.querySelector("#sort-status i"),
+        };
+
+        Object.values(icons).forEach((icon) => {
+          if (icon) {
+            icon.className = "fas fa-sort ms-1";
+          }
+        });
+
+        if (icons[sortField]) {
+          icons[sortField].className =
+            sortDirection === "asc"
+              ? "fas fa-sort-up ms-1"
+              : "fas fa-sort-down ms-1";
+        }
+      }
+
+      function loadFishData() {
+        if (!db) {
+          console.error("Firestore not initialized");
+          return;
+        }
+
+        fishTableBody.innerHTML = `
+        <tr>
+            <td colspan="6" class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">กำลังโหลด...</span>
+                </div>
+                <p class="mt-2">กำลังโหลดข้อมูลสต็อกปลา...</p>
+            </td>
+        </tr>
+    `;
+        updateSortIcons();
+        db.collection("fish")
+          // ลบ .orderBy("createdAt", "desc") ออก เพราะเราจะเรียงในฝั่งไคลเอ็นต์
+          .get()
+          .then((querySnapshot) => {
+            allFishData = [];
+            fishData = [];
+            let totalQuantity = 0;
+            let speciesSet = new Set();
+            let totalSize = 0;
+            let count = 0;
+
+            if (querySnapshot.empty) {
+              fishTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-5">
+                            <i class="fas fa-fish fa-3x mb-3" style="color: #ccc;"></i>
+                            <p>ยังไม่มีข้อมูลสต็อกปลา</p>
+                            <p class="text-muted">เริ่มต้นโดยการเพิ่มข้อมูลปลาด้วยฟอร์มด้านล่าง</p>
+                        </td>
+                    </tr>
+                `;
+              updateStats(0, 0, 0, allLogsData.length || 0);
+              return;
+            }
+
+            querySnapshot.forEach((doc) => {
+              const fish = { id: doc.id, ...doc.data() };
+              allFishData.push(fish);
+              fishData.push(fish);
+
+              const quantity = Number(fish.quantity) || 0;
+              const size = Number(fish.size) || 0;
+
+              totalQuantity += quantity;
+              speciesSet.add(fish.name);
+              totalSize += size;
+              count++;
+            });
+
+            filteredFishData = [...allFishData];
+            sortTable("name"); // เรียงตามชื่อชนิดพันธุ์โดยค่าเริ่มต้น
+
+            const avgSize = count > 0 ? (totalSize / count).toFixed(1) : 0;
+            updateStats(
+              totalQuantity,
+              speciesSet.size,
+              avgSize,
+              allLogsData.length || 0
+            );
+
+            renderFishTable();
+          })
+          .catch((error) => {
+            console.error("Error loading fish data: ", error);
+
+            let errorMessage = "เกิดข้อผิดพลาดในการโหลดข้อมูล";
+            if (error.code === "permission-denied") {
+              errorMessage = "ไม่มีสิทธิ์ในการเข้าถึงข้อมูล";
+            }
+
+            fishTableBody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="text-center py-5 text-danger">
+                        <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                        <p>${errorMessage}</p>
+                        <p class="text-muted">${error.message}</p>
+                    </td>
+                </tr>
+            `;
+          });
+      }
+
+      // ฟังก์ชันเรนเดอร์ตารางปลา
+      function renderFishTable() {
+        if (!filteredFishData || filteredFishData.length === 0) {
+          fishTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-5">
+                            <i class="fas fa-search fa-3x mb-3" style="color: #ccc;"></i>
+                            <p>ไม่พบข้อมูลปลาที่ตรงกับคำค้นหา</p>
+                        </td>
+                    </tr>
+                `;
+
+          document
+            .getElementById("pagination-container")
+            .classList.add("d-none");
+          document.getElementById(
+            "total-records-info"
+          ).textContent = `พบทั้งหมด 0 รายการ`;
+          return;
+        }
+
+        totalPages = Math.ceil(filteredFishData.length / rowsPerPage);
+        const startIndex = (currentPage - 1) * rowsPerPage;
+        const endIndex = Math.min(
+          startIndex + rowsPerPage,
+          filteredFishData.length
+        );
+        const currentData = filteredFishData.slice(startIndex, endIndex);
+
+        let tableHTML = "";
+
+        currentData.forEach((fish, index) => {
+          const globalIndex = startIndex + index + 1;
+          const quantity = Number(fish.quantity) || 0;
+          const size = Number(fish.size) || 0;
+
+          let statusClass, statusText;
+          switch (fish.status) {
+            case "active":
+              statusClass = "status-active";
+              statusText = "พร้อมใช้งาน";
+              break;
+            case "inactive":
+              statusClass = "status-inactive";
+              statusText = "ไม่พร้อมใช้งาน";
+              break;
+            case "breeding":
+              statusClass = "text-warning";
+              statusText = "กำลังเพาะพันธุ์";
+              break;
+            default:
+              statusClass = "status-active";
+              statusText = "พร้อมใช้งาน";
+          }
+          // ปิด AOS สำหรับตาราง
+          tableHTML += `
+                
+                    <tr>
+                        <td>${globalIndex}</td>
+                        <td>
+                            <strong>${fish.name || "ไม่ทราบชื่อ"}</strong>
+                            ${
+                              fish.description
+                                ? `<br><small class="text-muted">${fish.description.substring(
+                                    0,
+                                    100
+                                  )}...</small>`
+                                : ""
+                            }
+                        </td>
+                        <td>
+                            <span class="fw-bold">${size}</span>
+                            <span class="unit-badge ms-1">${
+                              fish.unit || "นิ้ว"
+                            }</span>
+                        </td>
+                        <td>
+                            <span class="fw-bold">${quantity.toLocaleString()}</span> ตัว
+                        </td>
+                        <td>
+                            <span class="${statusClass}"><i class="fas fa-circle me-1"></i> ${statusText}</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-warning me-1 edit-fish-btn" data-id="${
+                              fish.id
+                            }">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-fish-btn" data-id="${
+                              fish.id
+                            }">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+        });
+
+        fishTableBody.innerHTML = tableHTML;
+
+        document.getElementById(
+          "total-records-info"
+        ).textContent = `พบทั้งหมด ${filteredFishData.length.toLocaleString()} รายการ (แสดง ${
+          startIndex + 1
+        }-${endIndex})`;
+
+        renderPagination();
+
+        document.querySelectorAll(".edit-fish-btn").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const fishId = this.getAttribute("data-id");
+            editFish(fishId);
+          });
+        });
+
+        document.querySelectorAll(".delete-fish-btn").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const fishId = this.getAttribute("data-id");
+            deleteFish(fishId);
+          });
+        });
+      }
+
+      // ฟังก์ชันสร้าง pagination
+      function renderPagination() {
+        const paginationContainer = document.getElementById(
+          "pagination-container"
+        );
+
+        if (totalPages <= 1) {
+          paginationContainer.classList.add("d-none");
+          return;
+        }
+
+        paginationContainer.classList.remove("d-none");
+
+        let paginationHTML = "";
+
+        paginationHTML += `
+                <li class="page-item ${
+                  currentPage === 1 ? "disabled" : ""
+                }" id="prev-page">
+                    <a class="page-link" href="#" tabindex="-1">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+            `;
+
+        const startPage = Math.max(1, currentPage - 2);
+        const endPage = Math.min(totalPages, startPage + 4);
+
+        for (let i = startPage; i <= endPage; i++) {
+          paginationHTML += `
+                    <li class="page-item ${i === currentPage ? "active" : ""}">
+                        <a class="page-link" href="#" data-page="${i}">${i}</a>
+                    </li>
+                `;
+        }
+
+        paginationHTML += `
+                <li class="page-item ${
+                  currentPage === totalPages ? "disabled" : ""
+                }" id="next-page">
+                    <a class="page-link" href="#">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            `;
+
+        document.querySelector(".pagination").innerHTML = paginationHTML;
+        document.getElementById(
+          "page-info"
+        ).textContent = `หน้า ${currentPage} จาก ${totalPages}`;
+      }
+
+      // ฟังก์ชันไปยังหน้าที่ต้องการ
+      function goToPage(page) {
+        if (page < 1 || page > totalPages || page === currentPage) return;
+
+        currentPage = page;
+        renderFishTable();
+        document
+          .getElementById("stock-section")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+
+      // ฟังก์ชันปรับปรุงหลังเพิ่ม/แก้ไข/ลบปลา
+      function afterFishOperation() {
+        loadFishData();
+        document.getElementById("fish-search").value = "";
+        currentPage = 1;
+      }
+
+      // Update statistics
+      function updateStats(totalFish, speciesCount, avgSize) {
+        totalFishElement.textContent = totalFish.toLocaleString();
+        speciesCountElement.textContent = speciesCount;
+        avgSizeElement.textContent = avgSize;
+        totalMovementsElement.textContent = allLogsData.length || 0;
+      }
+
+      // ฟังก์ชันสำหรับสลับมุมมองล็อก
+      function toggleLogsView() {
+        showAllLogs = !showAllLogs;
+
+        const toggleBtn = document.getElementById("toggle-logs-btn");
+        if (toggleBtn) {
+          if (showAllLogs) {
+            toggleBtn.innerHTML =
+              '<i class="fas fa-eye-slash me-1"></i> แสดงน้อยลง';
+            toggleBtn.classList.remove("btn-primary");
+            toggleBtn.classList.add("btn-warning");
+          } else {
+            toggleBtn.innerHTML = '<i class="fas fa-eye me-1"></i> แสดงเพิ่ม';
+            toggleBtn.classList.remove("btn-warning");
+            toggleBtn.classList.add("btn-primary");
+          }
+        }
+
+        renderLogs();
+      }
+
+      // Load logs from Firebase
+      function loadLogs() {
+        if (!db) {
+          console.error("Firestore not initialized");
+          return;
+        }
+
+        logsContainer.innerHTML = `
+                <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">กำลังโหลด...</span>
+                    </div>
+                    <p class="mt-2">กำลังโหลดประวัติการใช้งาน...</p>
+                </div>
+            `;
+
+        const toggleBtn = document.getElementById("toggle-logs-btn");
+        if (toggleBtn) {
+          if (showAllLogs) {
+            toggleBtn.innerHTML =
+              '<i class="fas fa-eye-slash me-1"></i> แสดงน้อยลง';
+            toggleBtn.classList.remove("btn-primary");
+            toggleBtn.classList.add("btn-warning");
+          } else {
+            toggleBtn.innerHTML = '<i class="fas fa-eye me-1"></i> แสดงเพิ่ม';
+            toggleBtn.classList.remove("btn-warning");
+            toggleBtn.classList.add("btn-primary");
+          }
+        }
+
+        db.collection("logs")
+          .orderBy("timestamp", "desc")
+          .limit(100)
+          .get()
+          .then((querySnapshot) => {
+            allLogsData = [];
+
+            if (querySnapshot.empty) {
+              allLogsData = [];
+              renderLogs();
+              return;
+            }
+
+            querySnapshot.forEach((doc) => {
+              const log = { id: doc.id, ...doc.data() };
+              allLogsData.push(log);
+            });
+
+            renderLogs();
+          })
+          .catch((error) => {
+            console.error("Error loading logs: ", error);
+
+            let errorMessage = "เกิดข้อผิดพลาดในการโหลดประวัติ";
+            if (error.code === "permission-denied") {
+              errorMessage = "ไม่มีสิทธิ์ในการเข้าถึงข้อมูล";
+            }
+
+            logsContainer.innerHTML = `
+                        <div class="text-center py-5 text-danger">
+                            <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                            <p>${errorMessage}</p>
+                            <p class="text-muted">${error.message}</p>
+                        </div>
+                    `;
+            totalMovementsElement.textContent = "0";
+          });
+      }
+
+      // เพิ่มฟังก์ชันสำหรับแสดงล็อก
+      function renderLogs() {
+        if (!allLogsData || allLogsData.length === 0) {
+          logsContainer.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="fas fa-history fa-3x mb-3" style="color: #ccc;"></i>
+                        <p>ยังไม่มีประวัติการใช้งาน</p>
+                        <p class="text-muted">การกระทำใดๆ กับสต็อกปลาจะถูกบันทึกที่นี่</p>
+                    </div>
+                `;
+          totalMovementsElement.textContent = "0";
+          return;
+        }
+
+        const logsToShow = showAllLogs ? allLogsData : allLogsData.slice(0, 5);
+        const remainingLogs = allLogsData.length - 5;
+
+        let logsHTML = "";
+        let index = 1;
+
+        logsToShow.forEach((log) => {
+          let dateString = "ไม่ทราบเวลา";
+          let timeString = "";
+
+          try {
+            if (log.timestamp && typeof log.timestamp.toDate === "function") {
+              const date = log.timestamp.toDate();
+              timeString = date.toLocaleTimeString("th-TH");
+              dateString = date.toLocaleDateString("th-TH", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              });
+            } else if (log.timestamp && log.timestamp.seconds) {
+              const date = new Date(log.timestamp.seconds * 1000);
+              timeString = date.toLocaleTimeString("th-TH");
+              dateString = date.toLocaleDateString("th-TH", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              });
+            }
+          } catch (error) {
+            console.warn("Error parsing timestamp for log:", log.id, error);
+          }
+
+          let actionIcon, actionClass;
+          switch (log.action) {
+            case "เพิ่ม":
+              actionIcon = "fa-plus-circle";
+              actionClass = "text-success";
+              break;
+            case "แก้ไข":
+              actionIcon = "fa-edit";
+              actionClass = "text-warning";
+              break;
+            case "ลบ":
+              actionIcon = "fa-trash-alt";
+              actionClass = "text-danger";
+              break;
+            default:
+              actionIcon = "fa-exchange-alt";
+              actionClass = "text-primary";
+          }
+
+          logsHTML += `
+                    <div class="log-entry" data-aos="fade-up" data-aos-delay="${
+                      index * 30
+                    }">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <i class="fas ${actionIcon} me-2 ${actionClass}"></i>
+                                <span class="log-action">${
+                                  log.action || "การดำเนินการ"
+                                }</span> 
+                                <span>${log.details || "ไม่มีรายละเอียด"}</span>
+                            </div>
+                            <div class="log-time text-end">
+                                ${timeString ? `<div>${timeString}</div>` : ""}
+                                <div>${dateString}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+          index++;
+        });
+
+        if (!showAllLogs && allLogsData.length > 5) {
+          logsHTML += `
+                    <div class="text-center mt-3">
+                        <div class="alert alert-info py-2" style="font-size: 0.9rem;">
+                            <i class="fas fa-info-circle me-1"></i>
+                            มีรายการอีก ${remainingLogs} รายการที่ยังไม่แสดง
+                        </div>
+                    </div>
+                `;
+        }
+
+        if (showAllLogs) {
+          logsHTML += `
+                    <div class="text-center mt-3">
+                        <div class="alert alert-success py-2" style="font-size: 0.9rem;">
+                            <i class="fas fa-check-circle me-1"></i>
+                            แสดงประวัติทั้งหมด ${allLogsData.length} รายการ
+                        </div>
+                    </div>
+                `;
+        }
+
+        logsContainer.innerHTML = logsHTML;
+        totalMovementsElement.textContent = allLogsData.length.toString();
+      }
+
+      // Add new fish
+      addFishForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        if (!currentUser) {
+          Swal.fire({
+            icon: "error",
+            title: "ต้องล็อกอินก่อน!",
+            text: "กรุณาล็อกอินก่อนการเพิ่มข้อมูล",
+          });
+          return;
+        }
+
+        if (!db) {
+          Swal.fire({
+            icon: "error",
+            title: "Firestore Error",
+            text: "Firestore ยังไม่ได้เริ่มต้น",
+          });
+          return;
+        }
+
+        const fishName = document.getElementById("fish-name").value.trim();
+        const fishSize = parseFloat(document.getElementById("fish-size").value);
+        const sizeUnit = document.getElementById("size-unit").value;
+        const fishQuantity = parseInt(
+          document.getElementById("fish-quantity").value
+        );
+        const fishDescription = document
+          .getElementById("fish-description")
+          .value.trim();
+
+        if (
+          !fishName ||
+          isNaN(fishSize) ||
+          fishSize <= 0 ||
+          isNaN(fishQuantity) ||
+          fishQuantity <= 0
+        ) {
+          Swal.fire({
+            icon: "error",
+            title: "ข้อมูลไม่ครบถ้วน",
+            text: "กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง",
+          });
+          return;
+        }
+
+        const fishData = {
+          name: fishName,
+          size: fishSize,
+          unit: sizeUnit,
+          quantity: fishQuantity,
+          description: fishDescription || "",
+          status: "active",
+          createdBy: {
+            uid: currentUser.uid,
+            name: currentUser.displayName || "ไม่ทราบชื่อ",
+            email: currentUser.email || "ไม่ทราบอีเมล",
+          },
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        };
+
+        db.collection("fish")
+          .add(fishData)
+          .then((docRef) => {
+            addLog(
+              "เพิ่ม",
+              `ผู้ใช้ ${
+                currentUser.displayName || "ผู้ใช้"
+              } เพิ่มพันธุ์ปลา "${fishName}" จำนวน ${fishQuantity} ตัว`
+            );
+
+            Swal.fire({
+              icon: "success",
+              title: "สำเร็จ!",
+              text: `เพิ่มพันธุ์ปลา "${fishName}" เรียบร้อยแล้ว`,
+              timer: 2000,
+              showConfirmButton: false,
+            });
+
+            addFishForm.reset();
+            afterFishOperation();
+          })
+          .catch((error) => {
+            console.error("Error adding fish: ", error);
+
+            let errorMessage = "ไม่สามารถเพิ่มข้อมูลปลาได้";
+            if (error.code === "permission-denied") {
+              errorMessage = "ไม่มีสิทธิ์ในการเพิ่มข้อมูล";
+            }
+
+            Swal.fire({
+              icon: "error",
+              title: "เกิดข้อผิดพลาด!",
+              text: errorMessage,
+              footer: error.message,
+            });
+          });
+      });
+
+      // Edit fish - populate modal
+      function editFish(fishId) {
+        if (!currentUser) {
+          Swal.fire({
+            icon: "error",
+            title: "ต้องล็อกอินก่อน!",
+            text: "กรุณาล็อกอินก่อนการแก้ไขข้อมูล",
+          });
+          return;
+        }
+
+        const fish = fishData.find((f) => f.id === fishId);
+
+        if (!fish) {
+          Swal.fire({
+            icon: "error",
+            title: "ไม่พบข้อมูล",
+            text: "ไม่พบข้อมูลปลาที่ต้องการแก้ไข",
+          });
+          return;
+        }
+
+        document.getElementById("edit-fish-id").value = fish.id;
+        document.getElementById("edit-fish-name").value = fish.name || "";
+        document.getElementById("edit-fish-size").value = fish.size || 0;
+        document.getElementById("edit-size-unit").value = fish.unit || "นิ้ว";
+        document.getElementById("edit-fish-quantity").value =
+          fish.quantity || 0;
+        document.getElementById("edit-fish-description").value =
+          fish.description || "";
+        document.getElementById("edit-fish-status").value =
+          fish.status || "active";
+
+        const editModal = new bootstrap.Modal(
+          document.getElementById("editFishModal")
+        );
+        editModal.show();
+      }
+
+      // Update fish
+      updateFishBtn.addEventListener("click", function () {
+        if (!currentUser) {
+          Swal.fire({
+            icon: "error",
+            title: "ต้องล็อกอินก่อน!",
+            text: "กรุณาล็อกอินก่อนการอัพเดทข้อมูล",
+          });
+          return;
+        }
+
+        if (!db) {
+          Swal.fire({
+            icon: "error",
+            title: "Firestore Error",
+            text: "Firestore ยังไม่ได้เริ่มต้น",
+          });
+          return;
+        }
+
+        const fishId = document.getElementById("edit-fish-id").value;
+        const fishName = document.getElementById("edit-fish-name").value.trim();
+        const fishSize = parseFloat(
+          document.getElementById("edit-fish-size").value
+        );
+        const sizeUnit = document.getElementById("edit-size-unit").value;
+        const fishQuantity = parseInt(
+          document.getElementById("edit-fish-quantity").value
+        );
+        const fishDescription = document
+          .getElementById("edit-fish-description")
+          .value.trim();
+        const fishStatus = document.getElementById("edit-fish-status").value;
+
+        if (
+          !fishId ||
+          !fishName ||
+          isNaN(fishSize) ||
+          fishSize <= 0 ||
+          isNaN(fishQuantity) ||
+          fishQuantity <= 0
+        ) {
+          Swal.fire({
+            icon: "error",
+            title: "ข้อมูลไม่ครบถ้วน",
+            text: "กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง",
+          });
+          return;
+        }
+
+        const updatedData = {
+          name: fishName,
+          size: fishSize,
+          unit: sizeUnit,
+          quantity: fishQuantity,
+          description: fishDescription || "",
+          status: fishStatus,
+          updatedBy: {
+            uid: currentUser.uid,
+            name: currentUser.displayName || "ไม่ทราบชื่อ",
+            email: currentUser.email || "ไม่ทราบอีเมล",
+          },
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        };
+
+        db.collection("fish")
+          .doc(fishId)
+          .update(updatedData)
+          .then(() => {
+            addLog(
+              "แก้ไข",
+              `ผู้ใช้ ${
+                currentUser.displayName || "ผู้ใช้"
+              } แก้ไขพันธุ์ปลา "${fishName}" จำนวน ${fishQuantity} ตัว`
+            );
+
+            Swal.fire({
+              icon: "success",
+              title: "สำเร็จ!",
+              text: `อัพเดทพันธุ์ปลา "${fishName}" เรียบร้อยแล้ว`,
+              timer: 2000,
+              showConfirmButton: false,
+            });
+
+            const editModal = bootstrap.Modal.getInstance(
+              document.getElementById("editFishModal")
+            );
+            if (editModal) {
+              editModal.hide();
+            }
+
+            afterFishOperation();
+          })
+          .catch((error) => {
+            console.error("Error updating fish: ", error);
+
+            let errorMessage = "ไม่สามารถอัพเดทข้อมูลปลาได้";
+            if (error.code === "permission-denied") {
+              errorMessage = "ไม่มีสิทธิ์ในการอัพเดทข้อมูล";
+            } else if (error.code === "not-found") {
+              errorMessage = "ไม่พบข้อมูลปลาที่ต้องการอัพเดท";
+            }
+
+            Swal.fire({
+              icon: "error",
+              title: "เกิดข้อผิดพลาด!",
+              text: errorMessage,
+              footer: error.message,
+            });
+          });
+      });
+
+      // Delete fish
+      function deleteFish(fishId) {
+        if (!currentUser) {
+          Swal.fire({
+            icon: "error",
+            title: "ต้องล็อกอินก่อน!",
+            text: "กรุณาล็อกอินก่อนการลบข้อมูล",
+          });
+          return;
+        }
+
+        if (!db) {
+          Swal.fire({
+            icon: "error",
+            title: "Firestore Error",
+            text: "Firestore ยังไม่ได้เริ่มต้น",
+          });
+          return;
+        }
+
+        const fish = fishData.find((f) => f.id === fishId);
+
+        if (!fish) {
+          Swal.fire({
+            icon: "error",
+            title: "ไม่พบข้อมูล",
+            text: "ไม่พบข้อมูลปลาที่ต้องการลบ",
+          });
+          return;
+        }
+
+        Swal.fire({
+          title: "ยืนยันการลบ?",
+          text: `คุณแน่ใจหรือไม่ที่ต้องการลบพันธุ์ปลา "${fish.name}"`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "ใช่, ลบข้อมูล",
+          cancelButtonText: "ยกเลิก",
+          confirmButtonColor: "#d33",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            db.collection("fish")
+              .doc(fishId)
+              .delete()
+              .then(() => {
+                addLog(
+                  "ลบ",
+                  `ผู้ใช้ ${currentUser.displayName || "ผู้ใช้"} ลบพันธุ์ปลา "${
+                    fish.name
+                  }" ออกจากระบบ`
+                );
+
+                Swal.fire({
+                  icon: "success",
+                  title: "ลบแล้ว!",
+                  text: `พันธุ์ปลา "${fish.name}" ถูกลบออกจากระบบแล้ว`,
+                  timer: 2000,
+                  showConfirmButton: false,
+                });
+
+                afterFishOperation();
+              })
+              .catch((error) => {
+                console.error("Error deleting fish: ", error);
+
+                let errorMessage = "ไม่สามารถลบข้อมูลปลาได้";
+                if (error.code === "permission-denied") {
+                  errorMessage = "ไม่มีสิทธิ์ในการลบข้อมูล";
+                } else if (error.code === "not-found") {
+                  errorMessage = "ไม่พบข้อมูลปลาที่ต้องการลบ";
+                }
+
+                Swal.fire({
+                  icon: "error",
+                  title: "เกิดข้อผิดพลาด!",
+                  text: errorMessage,
+                  footer: error.message,
+                });
+              });
+          }
+        });
+      }
+
+      // Add log entry
+      function addLog(action, details) {
+        if (!currentUser || !db) {
+          console.warn("Cannot add log: user or db not available");
+          return Promise.resolve();
+        }
+
+        const logData = {
+          action: action,
+          details: details,
+          user: {
+            uid: currentUser.uid,
+            name: currentUser.displayName || "ไม่ทราบชื่อ",
+            email: currentUser.email || "ไม่ทราบอีเมล",
+          },
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        };
+
+        return db
+          .collection("logs")
+          .add(logData)
+          .then(() => {
+            console.log("Log added successfully");
+            loadLogs();
+            return Promise.resolve();
+          })
+          .catch((error) => {
+            console.error("Error adding log: ", error);
+            if (error.code === "permission-denied") {
+              console.warn(
+                "Permission denied when adding log. Check Firestore rules."
+              );
+            }
+            return Promise.reject(error);
+          });
+      }
+
+      // Refresh stock button
+      refreshStockBtn.addEventListener("click", function () {
+        const originalHTML = refreshStockBtn.innerHTML;
+        refreshStockBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin me-1"></i> กำลังโหลด...';
+        refreshStockBtn.disabled = true;
+
+        afterFishOperation();
+        loadLogs();
+
+        setTimeout(() => {
+          refreshStockBtn.innerHTML = originalHTML;
+          refreshStockBtn.disabled = false;
+
+          Swal.fire({
+            icon: "success",
+            title: "รีเฟรชแล้ว!",
+            text: "ข้อมูลทั้งหมดถูกอัพเดทแล้ว",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        }, 1000);
+      });
+
+      // Smooth scrolling for navigation
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: "smooth",
+            });
+
+            document.querySelectorAll(".nav-link").forEach((link) => {
+              link.classList.remove("active");
+            });
+            this.classList.add("active");
+          }
+        });
+      });
+
+      // Update active nav link on scroll
+      window.addEventListener("scroll", function () {
+        const sections = document.querySelectorAll(".row[id]");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          if (scrollY >= sectionTop - 100) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
