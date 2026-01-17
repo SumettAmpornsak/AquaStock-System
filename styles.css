@@ -17,7 +17,7 @@
 body {
     background-color: #f5f9ff;
     color: #333;
-    
+
 }
 
 .navbar-custom {
@@ -626,134 +626,130 @@ body {
 .table td {
     font-family: "Kanit", sans-serif;
 }
+
 /* CSS สำหรับตารางที่ใช้ใน PDF */
-      .pdf-table-container {
-        display: none;
-        font-family: "Sarabun", "Kanit", sans-serif !important;
-        background: white;
-        padding: 20px;
-        max-width: 100%;
-        box-sizing: border-box;
-      }
+.pdf-table-container {
+    display: none;
+    font-family: "Sarabun", "Kanit", sans-serif !important;
+    background: white;
+    padding: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
 
-      .pdf-header {
-        text-align: center;
-        margin-bottom: 30px;
-        padding-bottom: 15px;
-        border-bottom: 2px solid #1a73e8;
-      }
+.pdf-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #1a73e8;
+}
 
-      .pdf-header h2 {
-        color: #1a73e8;
-        font-size: 28px;
-        /* ← ใหญ่ขึ้นจาก 24px */
-        margin-bottom: 10px;
-        font-family: "Sarabun", sans-serif !important;
-        font-weight: 700;
-      }
+.pdf-header h2 {
+    color: #1a73e8;
+    font-size: 28px;
+    /* ← ใหญ่ขึ้นจาก 24px */
+    margin-bottom: 10px;
+    font-family: "Sarabun", sans-serif !important;
+    font-weight: 700;
+}
 
-      .pdf-header h3 {
-        color: #666;
-        font-size: 20px;
-        /* ← ใหญ่ขึ้นจาก 18px */
-        margin-bottom: 20px;
-        font-family: "Sarabun", sans-serif !important;
-      }
+.pdf-header h3 {
+    color: #666;
+    font-size: 20px;
+    /* ← ใหญ่ขึ้นจาก 18px */
+    margin-bottom: 20px;
+    font-family: "Sarabun", sans-serif !important;
+}
 
-      .pdf-header .date-info {
-        color: #333;
-        font-size: 16px;
-        /* ← ใหญ่ขึ้นจาก 14px */
-        margin-bottom: 8px;
-        font-weight: 500;
-      }
+.pdf-header .date-info {
+    color: #333;
+    font-size: 16px;
+    /* ← ใหญ่ขึ้นจาก 14px */
+    margin-bottom: 8px;
+    font-weight: 500;
+}
 
-      .pdf-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-family: "Sarabun", sans-serif !important;
-        font-size: 14px;
-        /* ← ใหญ่ขึ้นจาก 12px (ตารางหลัก) */
-      }
+.pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Sarabun", sans-serif !important;
+    font-size: 14px;
+    /* ← ใหญ่ขึ้นจาก 12px (ตารางหลัก) */
+}
 
-      .pdf-table th {
-        background-color: #1a73e8;
-        color: white;
-        font-weight: 600;
-        padding: 12px 10px;
-        /* ← เพิ่ม padding */
-        border: 1px solid #ddd;
-        text-align: center;
-        font-size: 16px;
-        /* ← ใหญ่ขึ้นจาก 13px (หัวตาราง) */
-      }
+.pdf-table th {
+    background-color: #1a73e8;
+    color: white;
+    font-weight: 600;
+    padding: 12px 10px;
+    /* ← เพิ่ม padding */
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 16px;
+    /* ← ใหญ่ขึ้นจาก 13px (หัวตาราง) */
+}
 
-      .pdf-table td {
-        padding: 10px 8px;
-        /* ← เพิ่ม padding */
-        border: 1px solid #ddd;
-        text-align: left;
-        font-size: 14px;
-        /* ← ใหญ่ขึ้นจาก 12px (ข้อมูลในตาราง) */
-      }
+.pdf-table td {
+    padding: 10px 8px;
+    /* ← เพิ่ม padding */
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 14px;
+    /* ← ใหญ่ขึ้นจาก 12px (ข้อมูลในตาราง) */
+}
 
-      .pdf-table tr:nth-child(even) {
-        background-color: #f9f9f9;
-      }
+.pdf-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
 
-      .pdf-footer {
-        margin-top: 30px;
-        padding-top: 15px;
-        border-top: 1px solid #ddd;
-        font-size: 13px;
-        /* ← ใหญ่ขึ้นจาก 11px */
-        color: #666;
-        text-align: right;
-        font-family: "Sarabun", sans-serif !important;
-      }
+.pdf-footer {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    font-size: 13px;
+    /* ← ใหญ่ขึ้นจาก 11px */
+    color: #666;
+    text-align: right;
+    font-family: "Sarabun", sans-serif !important;
+}
 
-      /* สำหรับตารางที่มีข้อมูลเยอะ - ปรับให้ใหญ่ขึ้นด้วย */
-      .pdf-table.small-font {
-        font-size: 12px;
-        /* ← ใหญ่ขึ้นจาก 10px */
-      }
+/* สำหรับตารางที่มีข้อมูลเยอะ - ปรับให้ใหญ่ขึ้นด้วย */
+.pdf-table.small-font {
+    font-size: 12px;
+    /* ← ใหญ่ขึ้นจาก 10px */
+}
 
-      .pdf-table.small-font th,
-      .pdf-table.small-font td {
-        padding: 8px 6px;
-        /* ← เพิ่ม padding */
-        font-size: 12px;
-        /* ← ใหญ่ขึ้นจาก 10px */
-      }
+.pdf-table.small-font th,
+.pdf-table.small-font td {
+    padding: 8px 6px;
+    /* ← เพิ่ม padding */
+    font-size: 12px;
+    /* ← ใหญ่ขึ้นจาก 10px */
+}
 
-      /* เพิ่มคลาสสำหรับฟอนต์ใหญ่พิเศษ */
-      .pdf-table.large-font {
-        font-size: 16px;
-      }
+/* เพิ่มคลาสสำหรับฟอนต์ใหญ่พิเศษ */
+.pdf-table.large-font {
+    font-size: 16px;
+}
 
-      .pdf-table.large-font th {
-        font-size: 18px;
-        padding: 14px 12px;
-      }
+.pdf-table.large-font th {
+    font-size: 18px;
+    padding: 14px 12px;
+}
 
-      .pdf-table.large-font td {
-        font-size: 16px;
-        padding: 12px 10px;
-      }
-
-
-
-
-
-      #search-info {
-  font-size: 0.875rem;
-  padding: 4px 8px;
-  background-color: rgba(26, 115, 232, 0.1);
-  border-radius: 4px;
-  border-left: 3px solid var(--primary-color);
-  margin-top: 5px;
+.pdf-table.large-font td {
+    font-size: 16px;
+    padding: 12px 10px;
+}\
+#search-info {
+    font-size: 0.875rem;
+    padding: 4px 8px;
+    background-color: rgba(26, 115, 232, 0.1);
+    border-radius: 4px;
+    border-left: 3px solid var(--primary-color);
+    margin-top: 5px;
 }
 
 #search-info i {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }

@@ -1,811 +1,587 @@
 <!DOCTYPE html>
 <html lang="th">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="icon"
-      href="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png"
-      type="image/x-icon"
-    />
-    <title>AquaStock System</title>
 
-    <!-- Bootstrap 5 CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png" type="image/x-icon" />
+  <title>AquaStock System</title>
+  <!-- Basic Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- AOS CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="AquaStock System" />
+  <meta name="description"
+    content="ระบบจัดการสต็อกปลาออนไลน์ที่ทันสมัย รองรับการใช้งานบนมือถือ ติดตามข้อมูลปลา จัดการสต็อก และบันทึกประวัติการใช้งานได้อย่างมีประสิทธิภาพ" />
+  <meta name="keywords"
+    content="ระบบจัดการปลา, โรงเพาะพันธุ์ปลา, สต็อกปลา, AquaStock, ระบบบริหารฟาร์มปลา, Fish Farm Management" />
+  <meta name="author" content="Sumett Ampornsak" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="Thai" />
+  <meta name="revisit-after" content="7 days" />
 
-    <!-- Font Kanit -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Mobile Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="AquaStock" />
+  <meta name="format-detection" content="telephone=no" />
 
-    <!-- เพิ่มฟอนต์ Sarabun สำหรับ PDF -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#6366f1" />
+  <meta name="msapplication-navbutton-color" content="#6366f1" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="#6366f1" />
 
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+  <!-- Favicon -->
+  <link rel="icon" href="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png" type="image/x-icon" />
+  <link rel="shortcut icon" href="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png" />
 
-    <!-- SweetAlert2 CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
-    />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aquastock-system.web.app/" />
+  <meta property="og:title" content="AquaStock System - ระบบการจัดการโรงเพาะพันธุ์ปลา" />
+  <meta property="og:description"
+    content="ระบบจัดการสต็อกปลาออนไลน์ที่ทันสมัย รองรับการใช้งานบนมือถือ ติดตามข้อมูลปลา จัดการสต็อก และบันทึกประวัติการใช้งาน" />
+  <meta property="og:image" content="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="th_TH" />
+  <meta property="og:site_name" content="AquaStock System" />
 
-    <!-- เพิ่ม library html2canvas สำหรับการจับภาพเป็น JPEG -->
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    
-    <link rel="stylesheet" href="styles.css" />
-    <!-- Custom CSS -->
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://aquastock-system.web.app/" />
+  <meta property="twitter:title" content="AquaStock System - ระบบการจัดการโรงเพาะพันธุ์ปลา" />
+  <meta property="twitter:description" content="ระบบจัดการสต็อกปลาออนไลน์ที่ทันสมัย รองรับการใช้งานบนมือถือ" />
+  <meta property="twitter:image" content="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png" />
 
-    <!-- เพิ่ม CSS สำหรับ PDF -->
-    <style>
-      /* CSS สำหรับตารางที่ใช้ใน PDF */
-      .pdf-table-container {
-        display: none;
-        font-family: "Sarabun", "Kanit", sans-serif !important;
-        background: white;
-        padding: 20px;
-        max-width: 100%;
-        box-sizing: border-box;
-      }
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 
-      .pdf-header {
-        text-align: center;
-        margin-bottom: 30px;
-        padding-bottom: 15px;
-        border-bottom: 2px solid #1a73e8;
-      }
+  <!-- Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="dns-prefetch" href="https://www.gstatic.com" />
 
-      .pdf-header h2 {
-        color: #1a73e8;
-        font-size: 28px;
-        /* ← ใหญ่ขึ้นจาก 24px */
-        margin-bottom: 10px;
-        font-family: "Sarabun", sans-serif !important;
-        font-weight: 700;
-      }
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://aquastock-system.web.app/" />
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-      .pdf-header h3 {
-        color: #666;
-        font-size: 20px;
-        /* ← ใหญ่ขึ้นจาก 18px */
-        margin-bottom: 20px;
-        font-family: "Sarabun", sans-serif !important;
-      }
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-      .pdf-header .date-info {
-        color: #333;
-        font-size: 16px;
-        /* ← ใหญ่ขึ้นจาก 14px */
-        margin-bottom: 8px;
-        font-weight: 500;
-      }
+  <!-- Font Itim -->
+  <link href="https://fonts.googleapis.com/css2?family=Itim:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-      .pdf-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-family: "Sarabun", sans-serif !important;
-        font-size: 14px;
-        /* ← ใหญ่ขึ้นจาก 12px (ตารางหลัก) */
-      }
+  <!-- เพิ่มฟอนต์ Sarabun สำหรับ PDF -->
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
 
-      .pdf-table th {
-        background-color: #1a73e8;
-        color: white;
-        font-weight: 600;
-        padding: 12px 10px;
-        /* ← เพิ่ม padding */
-        border: 1px solid #ddd;
-        text-align: center;
-        font-size: 16px;
-        /* ← ใหญ่ขึ้นจาก 13px (หัวตาราง) */
-      }
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-      .pdf-table td {
-        padding: 10px 8px;
-        /* ← เพิ่ม padding */
-        border: 1px solid #ddd;
-        text-align: left;
-        font-size: 14px;
-        /* ← ใหญ่ขึ้นจาก 12px (ข้อมูลในตาราง) */
-      }
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
 
-      .pdf-table tr:nth-child(even) {
-        background-color: #f9f9f9;
-      }
+  <!-- เพิ่ม library html2canvas สำหรับการจับภาพเป็น JPEG -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
-      .pdf-footer {
-        margin-top: 30px;
-        padding-top: 15px;
-        border-top: 1px solid #ddd;
-        font-size: 13px;
-        /* ← ใหญ่ขึ้นจาก 11px */
-        color: #666;
-        text-align: right;
-        font-family: "Sarabun", sans-serif !important;
-      }
+  <link rel="stylesheet" href="styles2.css" />
 
-      /* สำหรับตารางที่มีข้อมูลเยอะ - ปรับให้ใหญ่ขึ้นด้วย */
-      .pdf-table.small-font {
-        font-size: 12px;
-        /* ← ใหญ่ขึ้นจาก 10px */
-      }
+  <style>
+    /* CSS สำหรับตารางที่ใช้ใน PDF */
+    .pdf-table-container {
+      display: none;
+      font-family: "Sarabun", "Itim", sans-serif !important;
+      background: white;
+      padding: 20px;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
 
-      .pdf-table.small-font th,
-      .pdf-table.small-font td {
-        padding: 8px 6px;
-        /* ← เพิ่ม padding */
-        font-size: 12px;
-        /* ← ใหญ่ขึ้นจาก 10px */
-      }
+    .pdf-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #1a73e8;
+    }
 
-      /* เพิ่มคลาสสำหรับฟอนต์ใหญ่พิเศษ */
-      .pdf-table.large-font {
-        font-size: 16px;
-      }
+    .pdf-header h2 {
+      color: #1a73e8;
+      font-size: 28px;
+      /* ← ใหญ่ขึ้นจาก 24px */
+      margin-bottom: 10px;
+      font-family: "Sarabun", sans-serif !important;
+      font-weight: 700;
+    }
 
-      .pdf-table.large-font th {
-        font-size: 18px;
-        padding: 14px 12px;
-      }
+    .pdf-header h3 {
+      color: #666;
+      font-size: 20px;
+      /* ← ใหญ่ขึ้นจาก 18px */
+      margin-bottom: 20px;
+      font-family: "Sarabun", sans-serif !important;
+    }
 
-      .pdf-table.large-font td {
-        font-size: 16px;
-        padding: 12px 10px;
-      }
-    </style>
-  </head>
+    .pdf-header .date-info {
+      color: #333;
+      font-size: 16px;
+      /* ← ใหญ่ขึ้นจาก 14px */
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
 
-  <body>
-    <!-- Navigation (แสดงหลังล็อกอิน) -->
-    <nav
-      class="navbar navbar-expand-lg navbar-dark navbar-custom mb-4 d-none"
-      id="main-navbar"
-    >
-      <div class="container">
-        <!-- Brand -->
-        <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-          <img
-            src="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png"
-            alt="AquaStock Logo"
-            width="32"
-            height="32"
-            class="me-2"
-          />
-          AquaStock System
-        </a>
+    .pdf-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: "Sarabun", sans-serif !important;
+      font-size: 14px;
+      /* ← ใหญ่ขึ้นจาก 12px (ตารางหลัก) */
+    }
 
-        <!-- Toggler -->
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    .pdf-table th {
+      background-color: #1a73e8;
+      color: white;
+      font-weight: 600;
+      padding: 12px 10px;
+      /* ← เพิ่ม padding */
+      border: 1px solid #ddd;
+      text-align: center;
+      font-size: 16px;
+      /* ← ใหญ่ขึ้นจาก 13px (หัวตาราง) */
+    }
 
-        <!-- Menu -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-            <li class="nav-item">
-              <a class="nav-link active" href="#stock-section">
-                <i class="fas fa-boxes me-1"></i> สต็อกปลาทั้งหมด
-              </a>
-            </li>
+    .pdf-table td {
+      padding: 10px 8px;
+      /* ← เพิ่ม padding */
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 14px;
+      /* ← ใหญ่ขึ้นจาก 12px (ข้อมูลในตาราง) */
+    }
 
-            <li class="nav-item">
-              <a class="nav-link" href="#add-section">
-                <i class="fas fa-plus-circle me-1"></i> เพิ่มข้อมูล
-              </a>
-            </li>
+    .pdf-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
 
-            <li class="nav-item">
-              <a class="nav-link" href="#logs-section">
-                <i class="fas fa-history me-1"></i> ประวัติการใช้งาน
-              </a>
-            </li>
+    .pdf-footer {
+      margin-top: 30px;
+      padding-top: 15px;
+      border-top: 1px solid #ddd;
+      font-size: 13px;
+      /* ← ใหญ่ขึ้นจาก 11px */
+      color: #666;
+      text-align: right;
+      font-family: "Sarabun", sans-serif !important;
+    }
 
-            <!-- User Profile -->
-            <li class="nav-item ms-lg-3">
-              <div
-                class="d-flex align-items-center user-profile"
-                id="user-profile"
-              >
-                <img
-                  id="user-avatar"
-                  src=""
-                  alt="User Avatar"
-                  class="rounded-circle me-2"
-                  width="36"
-                  height="36"
-                />
+    /* สำหรับตารางที่มีข้อมูลเยอะ - ปรับให้ใหญ่ขึ้นด้วย */
+    .pdf-table.small-font {
+      font-size: 12px;
+      /* ← ใหญ่ขึ้นจาก 10px */
+    }
 
-                <div class="user-info d-none d-lg-block">
-                  <div class="user-name fw-semibold" id="user-name"></div>
-                  <div
-                    class="user-email small opacity-75"
-                    id="user-email"
-                  ></div>
-                </div>
+    .pdf-table.small-font th,
+    .pdf-table.small-font td {
+      padding: 8px 6px;
+      /* ← เพิ่ม padding */
+      font-size: 12px;
+      /* ← ใหญ่ขึ้นจาก 10px */
+    }
 
-                <button
-                  class="btn btn-outline-light btn-sm ms-3"
-                  id="logout-btn"
-                >
-                  <i class="fas fa-sign-out-alt me-1"></i> ออกจากระบบ
-                </button>
+    /* เพิ่มคลาสสำหรับฟอนต์ใหญ่พิเศษ */
+    .pdf-table.large-font {
+      font-size: 16px;
+    }
+
+    .pdf-table.large-font th {
+      font-size: 18px;
+      padding: 14px 12px;
+    }
+
+    .pdf-table.large-font td {
+      font-size: 16px;
+      padding: 12px 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation (แสดงหลังล็อกอิน) -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom mb-4 d-none" id="main-navbar">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+        <img src="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png" alt="AquaStock Logo" width="32" height="32"
+          class="me-2" />
+        AquaStock System
+      </a>
+
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menu -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item">
+            <a class="nav-link active" href="#stock-section">
+              <i class="fas fa-boxes me-1"></i> สต็อกปลาทั้งหมด
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#add-section">
+              <i class="fas fa-plus-circle me-1"></i> เพิ่มข้อมูล
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#logs-section">
+              <i class="fas fa-history me-1"></i> ประวัติการใช้งาน
+            </a>
+          </li>
+
+          <!-- User Profile -->
+          <li class="nav-item ms-lg-3">
+            <div class="d-flex align-items-center user-profile" id="user-profile">
+              <img id="user-avatar" src="" alt="User Avatar" class="rounded-circle me-2" width="36" height="36" />
+
+              <div class="user-info d-none d-lg-block">
+                <div class="user-name fw-semibold" id="user-name"></div>
+                <div class="user-email small opacity-75" id="user-email"></div>
               </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
 
-    <!-- Login Container (จะแสดงทันที) -->
-    <div class="container" id="login-container">
-      <div class="login-container">
-        <div class="card login-card" data-aos="zoom-in">
-          <div class="card-body">
-            <div class="login-logo">
-              <img
-                src="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png"
-                alt="AquaStock Logo"
-                width="75%"
-                height="75%"
-                class="me-2"
-              />
-            </div>
-            <h2 class="login-title">AquaStock System</h2>
-            <p class="login-subtitle">ระบบการจัดการโรงเพาะพันธุ์ปลา</p>
-
-            <div class="d-grid mb-4">
-              <button class="btn btn-google" id="google-login-btn">
-                <img
-                  src="https://img.icons8.com/color/48/000000/google-logo.png"
-                  alt="Google Logo"
-                />
-                เชื่อมต่อด้วย Google
+              <button class="btn btn-outline-primary btn-sm ms-3" id="logout-btn">
+                <i class="fas fa-sign-out-alt me-1"></i> ออกจากระบบ
               </button>
             </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-            <div class="text-muted mb-3">
-              <small style="color: var(--danger-color)"
-                >หากไม่สามารถใช้งานได้ กรุณาติดต่อผู้ดูแลระบบ</small
-              >
+  <!-- Login Container (จะแสดงทันที) -->
+  <div class="container" id="login-container">
+    <div class="login-container">
+      <div class="card login-card" data-aos="zoom-in">
+        <div class="card-body">
+          <div class="login-logo">
+            <img src="https://i.ibb.co/ZR6fRX9G/aquastock-logo.png" alt="AquaStock Logo" width="75%" height="75%"
+              class="me-2" />
+          </div>
+          <h2 class="login-title">AquaStock System</h2>
+          <p class="login-subtitle">ระบบการจัดการโรงเพาะพันธุ์ปลา</p>
+
+          <div class="d-grid mb-4">
+            <button class="btn btn-google" id="google-login-btn">
+              <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google Logo" />
+              เชื่อมต่อด้วย Google
+            </button>
+          </div>
+
+          <div class="text-muted mb-3">
+            <small style="color: var(--danger-color)">หากไม่สามารถใช้งานได้ กรุณาติดต่อผู้ดูแลระบบ</small>
+          </div>
+
+          <hr />
+
+          <div class="feature-list">
+            <h6 class="mb-3">คุณสมบัติของระบบ:</h6>
+            <ul>
+              <li>
+                <i class="fas fa-check-circle"></i> ระบบทันสมัย ปลอดภัย
+                รวดเร็ว
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                บันทึกและอัพเดทข้อมูลแบบเรียลไทม์
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                รองรับการใช้งานบนทุกอุปกรณ์
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container (จะแสดงหลังจากล็อกอินแล้ว) -->
+  <div class="container d-none" id="main-container">
+    <!-- Header -->
+    <div class="row mb-4" data-aos="fade-up">
+      <div class="col-12">
+        <div class="stats-card">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h2 class="mb-3">
+                <i class="fas fa-water me-2"></i>AquaStock System
+              </h2>
+              <p class="mb-0" id="welcome-message">
+                ยินดีต้อนรับสู่ระบบ AquaStock System
+              </p>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="stats-number" id="total-fish">0</div>
+              <div class="stats-label">จำนวนปลาทั้งหมด (ตัว)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-md-3 col-sm-6">
+        <div class="card">
+          <div class="card-body text-center">
+            <i class="fas fa-fish fa-2x mb-3 fish-icon"></i>
+            <h5 class="card-title" id="species-count">0</h5>
+            <p class="card-text">ชนิดพันธุ์ปลาทั้งหมด</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card">
+          <div class="card-body text-center">
+            <i class="fas fa-ruler-combined fa-2x mb-3" style="color: var(--secondary-color)"></i>
+            <h5 class="card-title" id="avg-size">0</h5>
+            <p class="card-text">ขนาดโดยเฉลี่ยทั้งหมด</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card">
+          <div class="card-body text-center">
+            <i class="fas fa-exchange-alt fa-2x mb-3" style="color: var(--warning-color)"></i>
+            <h5 class="card-title" id="total-movements">0</h5>
+            <p class="card-text">การเคลื่อนไหวทั้งหมด</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card">
+          <div class="card-body text-center">
+            <i class="fas fa-user-check fa-2x mb-3" style="color: var(--danger-color)"></i>
+            <h5 class="card-title" id="last-updated">วันนี้</h5>
+            <p class="card-text">อัพเดตล่าสุด</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fish Stock Section -->
+    <div class="row mb-5" id="stock-section" data-aos="fade-up" data-aos-delay="200">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="fas fa-boxes me-2"></i> สต็อกปลาทั้งหมด
+            </h5>
+            <div class="d-flex align-items-center">
+              <!-- Search box -->
+              <div class="input-group me-2" style="width: 250px">
+                <span class="input-group-text" id="search-icon">
+                  <i class="fas fa-search"></i>
+                </span>
+                <input type="text" class="form-control" id="fish-search" placeholder="ค้นหาปลาตามชื่อ..."
+                  aria-label="Search" aria-describedby="search-icon" />
+              </div>
+              <button class="btn btn-primary btn-sm" id="refresh-stock">
+                <i class="fas fa-sync-alt me-1"></i> รีเฟรชข้อมูล
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- Stats info -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <span class="me-2">แสดง:</span>
+                  <select class="form-select form-select-sm" id="rows-per-page" style="width: auto">
+                    <option value="10">10 รายการ</option>
+                    <option value="25">25 รายการ</option>
+                    <option value="50">50 รายการ</option>
+                    <option value="100">100 รายการ</option>
+                  </select>
+                  <span class="ms-3 text-muted" id="total-records-info">
+                    พบทั้งหมด 0 รายการ
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6 text-end">
+                <!-- ปุ่ม Export ทั้งหมด -->
+                <div class="btn-group" role="group">
+                  <span class="me-2">ส่งออกข้อมูล : </span>
+                  <button class="btn btn-outline-primary btn-sm me-2" id="export-csv-btn">
+                    <i class="fas fa-file-csv me-1"></i> CSV
+                  </button>
+                  <button class="btn btn-outline-success btn-sm me-2" id="export-jpeg-btn">
+                    <i class="fas fa-file-image me-1"></i> JPEG
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm" id="export-pdf-btn">
+                    <i class="fas fa-file-pdf me-1"></i> PDF
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <hr />
+            <!-- Container สำหรับ PDF (ซ่อนไว้) -->
+            <div id="pdf-container" class="pdf-table-container">
+              <div class="pdf-header">
+                <h2>รายงานสต็อก</h2>
+                <h3>AquaStock System</h3>
+                <div class="date-info">
+                  วันที่: <span id="pdf-date">-</span> | เวลา:
+                  <span id="pdf-time">-</span>
+                </div>
+                <div class="date-info">
+                  จำนวนรายการทั้งหมด: <span id="pdf-total">0</span> รายการ |
+                  พิมพ์โดย: <span id="pdf-user">-</span>
+                </div>
+              </div>
 
-            <div class="feature-list">
-              <h6 class="mb-3">คุณสมบัติของระบบ:</h6>
-              <ul>
-                <li>
-                  <i class="fas fa-check-circle"></i> ระบบทันสมัย ปลอดภัย
-                  รวดเร็ว
+              <table class="pdf-table" id="pdf-table-content">
+                <thead>
+                  <tr>
+                    <th width="5%">ลำดับ</th>
+                    <th width="25%">ชนิดพันธุ์</th>
+                    <th width="15%">ขนาด</th>
+                    <th width="15%">จำนวน</th>
+                    <th width="20%">สถานะ</th>
+                    <th width="20%">รายละเอียด</th>
+                  </tr>
+                </thead>
+                <tbody id="pdf-table-body">
+                  <!-- ข้อมูลจะถูกเพิ่มที่นี่ -->
+                </tbody>
+              </table>
+
+              <div class="pdf-footer">
+                <div>AquaStock System - ระบบการจัดการโรงเพาะพันธุ์ปลา</div>
+                <div>ผู้ดูแลระบบ : Sumett Ampornsak</div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-hover" id="fish-table">
+                <thead>
+                  <tr>
+                    <th width="5%">
+                      <button class="btn btn-sm btn-link p-0" id="sort-id">
+                        ลำดับ <i class="fas fa-sort ms-1"></i>
+                      </button>
+                    </th>
+                    <th width="25%">
+                      <button class="btn btn-sm btn-link p-0" id="sort-name">
+                        ชนิดพันธุ์ <i class="fas fa-sort ms-1"></i>
+                      </button>
+                    </th>
+                    <th width="15%">
+                      <button class="btn btn-sm btn-link p-0" id="sort-size">
+                        ขนาด <i class="fas fa-sort ms-1"></i>
+                      </button>
+                    </th>
+                    <th width="15%">
+                      <button class="btn btn-sm btn-link p-0" id="sort-quantity">
+                        จำนวน <i class="fas fa-sort ms-1"></i>
+                      </button>
+                    </th>
+                    <th width="20%">
+                      <button class="btn btn-sm btn-link p-0" id="sort-status">
+                        สถานะ <i class="fas fa-sort ms-1"></i>
+                      </button>
+                    </th>
+                    <th width="20%">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody id="fish-table-body">
+                  <!-- Data will be loaded here -->
+                  <tr>
+                    <td colspan="6" class="text-center py-5">
+                      <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">กำลังโหลด...</span>
+                      </div>
+                      <p class="mt-2">กำลังโหลดข้อมูลสต็อกปลา...</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation" id="pagination-container" class="d-none">
+              <ul class="pagination justify-content-center mb-0">
+                <li class="page-item disabled" id="prev-page">
+                  <a class="page-link" href="#" tabindex="-1">
+                    <i class="fas fa-chevron-left"></i>
+                  </a>
                 </li>
-                <li>
-                  <i class="fas fa-check-circle"></i>
-                  บันทึกและอัพเดทข้อมูลแบบเรียลไทม์
+                <li class="page-item active">
+                  <a class="page-link" href="#" data-page="1">1</a>
                 </li>
-                <li>
-                  <i class="fas fa-check-circle"></i>
-                  รองรับการใช้งานบนทุกอุปกรณ์
+                <li class="page-item" id="next-page">
+                  <a class="page-link" href="#">
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
                 </li>
               </ul>
-            </div>
+              <div class="text-center mt-2">
+                <small class="text-muted" id="page-info">หน้า 1 จาก 1</small>
+              </div>
+            </nav>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Main Container (จะแสดงหลังจากล็อกอินแล้ว) -->
-    <div class="container d-none" id="main-container">
-      <!-- Header -->
-      <div class="row mb-4" data-aos="fade-up">
-        <div class="col-12">
-          <div class="stats-card">
-            <div class="row align-items-center">
-              <div class="col-md-8">
-                <h2 class="mb-3">
-                  <i class="fas fa-water me-2"></i>AquaStock System
-                </h2>
-                <p class="mb-0" id="welcome-message">
-                  ยินดีต้อนรับสู่ระบบ AquaStock System
-                </p>
-              </div>
-              <div class="col-md-4 text-center">
-                <div class="stats-number" id="total-fish">0</div>
-                <div class="stats-label">จำนวนปลาทั้งหมด (ตัว)</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stats Cards -->
-      <div class="row mb-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="col-md-3 col-sm-6">
-          <div class="card">
-            <div class="card-body text-center">
-              <i class="fas fa-fish fa-2x mb-3 fish-icon"></i>
-              <h5 class="card-title" id="species-count">0</h5>
-              <p class="card-text">ชนิดพันธุ์ปลาทั้งหมด</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <div class="card">
-            <div class="card-body text-center">
-              <i
-                class="fas fa-ruler-combined fa-2x mb-3"
-                style="color: var(--secondary-color)"
-              ></i>
-              <h5 class="card-title" id="avg-size">0</h5>
-              <p class="card-text">ขนาดโดยเฉลี่ยทั้งหมด</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <div class="card">
-            <div class="card-body text-center">
-              <i
-                class="fas fa-exchange-alt fa-2x mb-3"
-                style="color: var(--warning-color)"
-              ></i>
-              <h5 class="card-title" id="total-movements">0</h5>
-              <p class="card-text">การเคลื่อนไหวทั้งหมด</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <div class="card">
-            <div class="card-body text-center">
-              <i
-                class="fas fa-user-check fa-2x mb-3"
-                style="color: var(--danger-color)"
-              ></i>
-              <h5 class="card-title" id="last-updated">วันนี้</h5>
-              <p class="card-text">อัพเดตล่าสุด</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Fish Stock Section -->
-      <div
-        class="row mb-5"
-        id="stock-section"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        <div class="col-12">
-          <div class="card">
-            <div
-              class="card-header d-flex justify-content-between align-items-center"
-            >
-              <h5 class="mb-0">
-                <i class="fas fa-boxes me-2"></i> สต็อกปลาทั้งหมด
-              </h5>
-              <div class="d-flex align-items-center">
-                <!-- Search box -->
-                <div class="input-group me-2" style="width: 250px">
-                  <span class="input-group-text" id="search-icon">
-                    <i class="fas fa-search"></i>
-                  </span>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="fish-search"
-                    placeholder="ค้นหาปลาตามชื่อ..."
-                    aria-label="Search"
-                    aria-describedby="search-icon"
-                  />
-                </div>
-                <button class="btn btn-primary btn-sm" id="refresh-stock">
-                  <i class="fas fa-sync-alt me-1"></i> รีเฟรชข้อมูล
-                </button>
-              </div>
-            </div>
-            <div class="card-body">
-              <!-- Stats info -->
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <div class="d-flex align-items-center">
-                    <span class="me-2">แสดง:</span>
-                    <select
-                      class="form-select form-select-sm"
-                      id="rows-per-page"
-                      style="width: auto"
-                    >
-                      <option value="10">10 รายการ</option>
-                      <option value="25">25 รายการ</option>
-                      <option value="50">50 รายการ</option>
-                      <option value="100">100 รายการ</option>
-                    </select>
-                    <span class="ms-3 text-muted" id="total-records-info">
-                      พบทั้งหมด 0 รายการ
-                    </span>
-                  </div>
-                </div>
-                <div class="col-md-6 text-end">
-                  <!-- ปุ่ม Export ทั้งหมด -->
-                  <div class="btn-group" role="group">
-                    <span class="me-2">ส่งออกข้อมูล : </span>
-                    <button
-                      class="btn btn-outline-primary btn-sm me-2"
-                      id="export-csv-btn"
-                    >
-                      <i class="fas fa-file-csv me-1"></i> CSV
-                    </button>
-                    <button
-                      class="btn btn-outline-success btn-sm me-2"
-                      id="export-jpeg-btn"
-                    >
-                      <i class="fas fa-file-image me-1"></i> JPEG
-                    </button>
-                    <button
-                      class="btn btn-outline-danger btn-sm"
-                      id="export-pdf-btn"
-                    >
-                      <i class="fas fa-file-pdf me-1"></i> PDF
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Container สำหรับ PDF (ซ่อนไว้) -->
-              <div id="pdf-container" class="pdf-table-container">
-                <div class="pdf-header">
-                  <h2>รายงานสต็อก</h2>
-                  <h3>AquaStock System</h3>
-                  <div class="date-info">
-                    วันที่: <span id="pdf-date">-</span> | เวลา:
-                    <span id="pdf-time">-</span>
-                  </div>
-                  <div class="date-info">
-                    จำนวนรายการทั้งหมด: <span id="pdf-total">0</span> รายการ |
-                    พิมพ์โดย: <span id="pdf-user">-</span>
-                  </div>
-                </div>
-
-                <table class="pdf-table" id="pdf-table-content">
-                  <thead>
-                    <tr>
-                      <th width="5%">ลำดับ</th>
-                      <th width="25%">ชนิดพันธุ์</th>
-                      <th width="15%">ขนาด</th>
-                      <th width="15%">จำนวน</th>
-                      <th width="20%">สถานะ</th>
-                      <th width="20%">รายละเอียด</th>
-                    </tr>
-                  </thead>
-                  <tbody id="pdf-table-body">
-                    <!-- ข้อมูลจะถูกเพิ่มที่นี่ -->
-                  </tbody>
-                </table>
-
-                <div class="pdf-footer">
-                  <div>AquaStock System - ระบบการจัดการโรงเพาะพันธุ์ปลา</div>
-                  <div>ผู้ดูแลระบบ : Sumett Ampornsak</div>
-                </div>
-              </div>
-
-              <div class="table-responsive">
-                <table class="table table-hover" id="fish-table">
-                  <thead>
-                    <tr>
-                      <th width="5%">
-                        <button class="btn btn-sm btn-link p-0" id="sort-id">
-                          ลำดับ <i class="fas fa-sort ms-1"></i>
-                        </button>
-                      </th>
-                      <th width="25%">
-                        <button class="btn btn-sm btn-link p-0" id="sort-name">
-                          ชนิดพันธุ์ <i class="fas fa-sort ms-1"></i>
-                        </button>
-                      </th>
-                      <th width="15%">
-                        <button class="btn btn-sm btn-link p-0" id="sort-size">
-                          ขนาด <i class="fas fa-sort ms-1"></i>
-                        </button>
-                      </th>
-                      <th width="15%">
-                        <button
-                          class="btn btn-sm btn-link p-0"
-                          id="sort-quantity"
-                        >
-                          จำนวน <i class="fas fa-sort ms-1"></i>
-                        </button>
-                      </th>
-                      <th width="20%">
-                        <button
-                          class="btn btn-sm btn-link p-0"
-                          id="sort-status"
-                        >
-                          สถานะ <i class="fas fa-sort ms-1"></i>
-                        </button>
-                      </th>
-                      <th width="20%">จัดการ</th>
-                    </tr>
-                  </thead>
-                  <tbody id="fish-table-body">
-                    <!-- Data will be loaded here -->
-                    <tr>
-                      <td colspan="6" class="text-center py-5">
-                        <div class="spinner-border text-primary" role="status">
-                          <span class="visually-hidden">กำลังโหลด...</span>
-                        </div>
-                        <p class="mt-2">กำลังโหลดข้อมูลสต็อกปลา...</p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <!-- Pagination -->
-              <nav
-                aria-label="Page navigation"
-                id="pagination-container"
-                class="d-none"
-              >
-                <ul class="pagination justify-content-center mb-0">
-                  <li class="page-item disabled" id="prev-page">
-                    <a class="page-link" href="#" tabindex="-1">
-                      <i class="fas fa-chevron-left"></i>
-                    </a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="#" data-page="1">1</a>
-                  </li>
-                  <li class="page-item" id="next-page">
-                    <a class="page-link" href="#">
-                      <i class="fas fa-chevron-right"></i>
-                    </a>
-                  </li>
-                </ul>
-                <div class="text-center mt-2">
-                  <small class="text-muted" id="page-info">หน้า 1 จาก 1</small>
-                </div>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Add Fish Form -->
-      <div
-        class="row mb-5"
-        id="add-section"
-        data-aos="fade-up"
-        data-aos-delay="300"
-      >
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h5 class="mb-0">
-                <i class="fas fa-plus-circle me-2"></i> เพิ่มข้อมูลใหม่
-              </h5>
-            </div>
-            <div class="card-body">
-              <form id="add-fish-form">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="fish-name" class="form-label"
-                        ><span style="color: var(--danger-color)">*</span>
-                        ชื่อพันธุ์ปลา</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="fish-name"
-                        required
-                        placeholder="เช่น ปลานิล, ปลาตะเพียน"
-                      />
-                    </div>
-
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="mb-3">
-                          <label for="fish-size" class="form-label"
-                            ><span style="color: var(--danger-color)">*</span>
-                            ขนาดปลา</label
-                          >
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="fish-size"
-                            required
-                            min="0"
-                            step="0.1"
-                            placeholder="เช่น 5.5"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="mb-3">
-                          <label for="size-unit" class="form-label">
-                            <span style="color: var(--danger-color)">*</span
-                            >หน่วยนับ</label
-                          >
-                          <select class="form-control" id="size-unit" required>
-                            <option value="นิ้ว">นิ้ว</option>
-                            <option value="เซนติเมตร">เซนติเมตร</option>
-                            <option value="มิลลิเมตร">มิลลิเมตร</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="fish-quantity" class="form-label"
-                        ><span style="color: var(--danger-color)">*</span>
-                        จำนวนปลา (ตัว)</label
-                      >
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="fish-quantity"
-                        required
-                        min="1"
-                        placeholder="เช่น 100"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="fish-description" class="form-label"
-                        >รายละเอียดเพิ่มเติม</label
-                      >
-                      <textarea
-                        class="form-control"
-                        id="fish-description"
-                        rows="6"
-                        placeholder="ข้อมูลเพิ่มเติมเกี่ยวกับพันธุ์ปลา เช่น สี ลักษณะพิเศษ"
-                      ></textarea>
-                    </div>
-
-                    <div class="d-grid">
-                      <button type="submit" class="btn btn-success btn-lg">
-                        <i class="fas fa-save me-2"></i> บันทึกข้อมูล
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Logs Section -->
-      <div
-        class="row mb-5"
-        id="logs-section"
-        data-aos="fade-up"
-        data-aos-delay="400"
-      >
-        <div class="col-12">
-          <div class="card">
-            <div
-              class="card-header d-flex justify-content-between align-items-center"
-            >
-              <h5 class="mb-0">
-                <i class="fas fa-history me-2"></i> ประวัติการใช้งาน
-              </h5>
-              <button class="btn btn-primary btn-sm" id="toggle-logs-btn">
-                <i class="fas fa-eye me-1"></i> แสดงเพิ่ม
-              </button>
-            </div>
-            <div class="card-body">
-              <div id="logs-container">
-                <!-- Logs will be loaded here -->
-                <div class="text-center py-4">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">กำลังโหลด...</span>
-                  </div>
-                  <p class="mt-2">กำลังโหลดประวัติการใช้งาน...</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer d-none" id="main-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <h5><i class="fas fa-fish me-2"></i>AquaStock System</h5>
-            <p>ระบบการจัดการโรงเพาะพันธุ์ปลา V.2</p>
-          </div>
-          <div class="col-md-6 text-md-end">
-            <p>พัฒนาโดย Sumett Ampornsak</p>
-            <p class="mb-0">
-              &copy; <span id="year"></span> ระบบการจัดการโรงเพาะพันธุ์ปลา | All
-              Rights Reserved.
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Edit Fish Modal -->
-    <div class="modal fade" id="editFishModal" tabindex="-1">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              <i class="fas fa-edit me-2"></i> แก้ไขข้อมูลปลา
+    <!-- Add Fish Form -->
+    <div class="row mb-5" id="add-section" data-aos="fade-up" data-aos-delay="300">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <i class="fas fa-plus-circle me-2"></i> เพิ่มข้อมูลใหม่
             </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
           </div>
-          <div class="modal-body">
-            <form id="edit-fish-form">
-              <input type="hidden" id="edit-fish-id" />
+          <div class="card-body">
+            <form id="add-fish-form">
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="edit-fish-name" class="form-label"
-                      >ชื่อพันธุ์ปลา</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="edit-fish-name"
-                      required
-                    />
+                    <label for="fish-name" class="form-label"><span style="color: var(--danger-color)">*</span>
+                      ชื่อพันธุ์ปลา</label>
+                    <input type="text" class="form-control" id="fish-name" required
+                      placeholder="เช่น ปลานิล, ปลาตะเพียน" />
                   </div>
 
                   <div class="row">
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="edit-fish-size" class="form-label"
-                          >ขนาดปลา</label
-                        >
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="edit-fish-size"
-                          required
-                          min="0"
-                          step="0.1"
-                        />
+                        <label for="fish-size" class="form-label"><span style="color: var(--danger-color)">*</span>
+                          ขนาดปลา</label>
+                        <input type="number" class="form-control" id="fish-size" required min="0" step="0.1"
+                          placeholder="เช่น 5.5" />
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="edit-size-unit" class="form-label"
-                          >หน่วย</label
-                        >
-                        <select
-                          class="form-control"
-                          id="edit-size-unit"
-                          required
-                        >
+                        <label for="size-unit" class="form-label">
+                          <span style="color: var(--danger-color)">*</span>หน่วยนับ</label>
+                        <select class="form-control" id="size-unit" required>
                           <option value="นิ้ว">นิ้ว</option>
                           <option value="เซนติเมตร">เซนติเมตร</option>
                           <option value="มิลลิเมตร">มิลลิเมตร</option>
@@ -815,79 +591,174 @@
                   </div>
 
                   <div class="mb-3">
-                    <label for="edit-fish-quantity" class="form-label"
-                      >จำนวนปลา (ตัว)</label
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="edit-fish-quantity"
-                      required
-                      min="1"
-                    />
+                    <label for="fish-quantity" class="form-label"><span style="color: var(--danger-color)">*</span>
+                      จำนวนปลา (ตัว)</label>
+                    <input type="number" class="form-control" id="fish-quantity" required min="1"
+                      placeholder="เช่น 100" />
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="edit-fish-description" class="form-label"
-                      >รายละเอียดเพิ่มเติม</label
-                    >
-                    <textarea
-                      class="form-control"
-                      id="edit-fish-description"
-                      rows="5"
-                    ></textarea>
+                    <label for="fish-description" class="form-label">รายละเอียดเพิ่มเติม</label>
+                    <textarea class="form-control" id="fish-description" rows="6"
+                      placeholder="ข้อมูลเพิ่มเติมเกี่ยวกับพันธุ์ปลา เช่น สี ลักษณะพิเศษ"></textarea>
                   </div>
 
-                  <div class="mb-3">
-                    <label for="edit-fish-status" class="form-label"
-                      >สถานะ</label
-                    >
-                    <select class="form-control" id="edit-fish-status" required>
-                      <option value="active">พร้อมใช้งาน</option>
-                      <option value="inactive">ไม่พร้อมใช้งาน</option>
-                      <option value="breeding">กำลังเพาะพันธุ์</option>
-                    </select>
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-success btn-lg">
+                      <i class="fas fa-save me-2"></i> บันทึกข้อมูล
+                    </button>
                   </div>
                 </div>
               </div>
             </form>
           </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              ปิด
-            </button>
-            <button type="button" class="btn btn-primary" id="update-fish-btn">
-              <i class="fas fa-save me-1"></i> บันทึกข้อมูล
-            </button>
-          </div>
         </div>
       </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <!-- Logs Section -->
+    <div class="row mb-5" id="logs-section" data-aos="fade-up" data-aos-delay="400">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="fas fa-history me-2"></i> ประวัติการใช้งาน
+            </h5>
+            <button class="btn btn-primary btn-sm" id="toggle-logs-btn">
+              <i class="fas fa-eye me-1"></i> แสดงเพิ่ม
+            </button>
+          </div>
+          <div class="card-body">
+            <div id="logs-container">
+              <!-- Logs will be loaded here -->
+              <div class="text-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">กำลังโหลด...</span>
+                </div>
+                <p class="mt-2">กำลังโหลดประวัติการใช้งาน...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Footer -->
+  <footer class="footer d-none" id="main-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5><i class="fas fa-fish me-2"></i>AquaStock System</h5>
+          <p>ระบบการจัดการโรงเพาะพันธุ์ปลา V.2</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p>พัฒนาโดย Sumett Ampornsak</p>
+          <p class="mb-0">
+            &copy; <span id="year"></span> ระบบการจัดการโรงเพาะพันธุ์ปลา | All
+            Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-    <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Edit Fish Modal -->
+  <div class="modal fade" id="editFishModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="fas fa-edit me-2"></i> แก้ไขข้อมูลปลา
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="edit-fish-form">
+            <input type="hidden" id="edit-fish-id" />
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="edit-fish-name" class="form-label">ชื่อพันธุ์ปลา</label>
+                  <input type="text" class="form-control" id="edit-fish-name" required />
+                </div>
 
-    <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="edit-fish-size" class="form-label">ขนาดปลา</label>
+                      <input type="number" class="form-control" id="edit-fish-size" required min="0" step="0.1" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="edit-size-unit" class="form-label">หน่วย</label>
+                      <select class="form-control" id="edit-size-unit" required>
+                        <option value="นิ้ว">นิ้ว</option>
+                        <option value="เซนติเมตร">เซนติเมตร</option>
+                        <option value="มิลลิเมตร">มิลลิเมตร</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
-    <!-- เพิ่ม library jsPDF สำหรับการสร้าง PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+                <div class="mb-3">
+                  <label for="edit-fish-quantity" class="form-label">จำนวนปลา (ตัว)</label>
+                  <input type="number" class="form-control" id="edit-fish-quantity" required min="1" />
+                </div>
+              </div>
 
-    <!-- Custom JS -->
-    <script src="AquaStock_System_app.js"></script>
-  </body>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="edit-fish-description" class="form-label">รายละเอียดเพิ่มเติม</label>
+                  <textarea class="form-control" id="edit-fish-description" rows="5"></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label for="edit-fish-status" class="form-label">สถานะ</label>
+                  <select class="form-control" id="edit-fish-status" required>
+                    <option value="active">พร้อมใช้งาน</option>
+                    <option value="inactive">ไม่พร้อมใช้งาน</option>
+                    <option value="breeding">กำลังเพาะพันธุ์</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            ปิด
+          </button>
+          <button type="button" class="btn btn-primary" id="update-fish-btn">
+            <i class="fas fa-save me-1"></i> บันทึกข้อมูล
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- เพิ่ม library jsPDF สำหรับการสร้าง PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Custom JS -->
+  <script src="AquaStock_System_app.js"></script>
+</body>
+
 </html>
